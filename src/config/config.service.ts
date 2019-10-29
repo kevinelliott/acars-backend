@@ -1,9 +1,13 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Logger } from '@nestjs/common/interfaces/external/kafka-options.interface';
 
 require('dotenv').config();
 
 class ConfigService {
-  constructor(private env: { [k: string]: string | undefined }) { }
+  constructor(
+    private logger: Logger,
+    private env: { [k: string]: string | undefined }
+  ) { }
 
   private getValue(key: string, throwOnMissing = true): string {
     const value = this.env[key];
@@ -45,6 +49,11 @@ class ConfigService {
 
       entities: ['dist/**/*.entity{.ts,.js}'],
 
+      poolErrorHandler: function(err: any) {
+        this.logger.warn(err);
+      },
+
+      logging: ['query', 'error'],
       synchronize: false,
       migrationsTableName: 'migration',
 
