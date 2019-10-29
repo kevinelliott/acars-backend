@@ -30,6 +30,7 @@
     "@types/socket.io": "^2.1.4",
     "nats": "^1.3.2",
     "nest-schedule": "^0.6.3",
+    "nestjs-easyconfig": "^1.5.1",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",

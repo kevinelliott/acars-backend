@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
+import { EasyconfigService } from 'nestjs-easyconfig';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(EasyconfigService);
 
   const eventsMicroservice = app.connectMicroservice({
     transport: Transport.TCP,
@@ -13,7 +15,7 @@ async function bootstrap() {
   const natsMicroservice = app.connectMicroservice({
     transport: Transport.NATS,
     options: {
-      url: 'nats://localhost:4222',
+      url: configService.get('NATS_URL'),
     },
   });
 

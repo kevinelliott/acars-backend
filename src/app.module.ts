@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { EasyconfigModule } from 'nestjs-easyconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
@@ -10,6 +11,7 @@ import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
+    EasyconfigModule.register({ path: './config/.env', safe: true }),
     EventsModule,
     NatsModule,
     ScheduleModule,
