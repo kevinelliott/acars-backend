@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Logger } from '@nestjs/common/interfaces/external/kafka-options.interface';
+import { Logger } from '@nestjs/common';
 
 require('dotenv').config();
 
@@ -78,7 +78,8 @@ const requiredVars = [
   'NATS_PORT'
 ];
 
-const configService = new ConfigService(process.env)
+const logger = new Logger('ConfigService');
+const configService = new ConfigService(logger, process.env)
   .ensureValues(requiredVars);
 
 export { configService };
