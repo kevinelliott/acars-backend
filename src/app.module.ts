@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { EasyconfigModule } from 'nestjs-easyconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+
+import { configService } from './config/config.service';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,11 +12,10 @@ import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
-    EasyconfigModule.register({ path: './config/.env', safe: true }),
     EventsModule,
     NatsModule,
     ScheduleModule,
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [AppController],
   providers: [AppService],

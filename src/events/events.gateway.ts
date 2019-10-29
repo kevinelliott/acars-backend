@@ -32,12 +32,16 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   async broadcast(subject: string, data: any) {
-    this.logger.log("Broadcasting '" + subject + "' to " + this.connections + " browsers.");
-    try {
-      this.server.emit('events', 'broadcast');
-      this.server.emit(subject, data);  
-    } catch (e) {
-      console.log(e);
+    if (this.connections > 0) {
+      this.logger.log("Broadcasting '" + subject + "' to " + this.connections + " browsers.");
+      try {
+        this.server.emit('events', 'broadcast');
+        this.server.emit(subject, data);  
+      } catch (e) {
+        this.logger.log(e);
+      }
+    } else {
+      this.logger.log('No browser connections, skipping broadcast.')
     }
   }
 
