@@ -21,7 +21,7 @@ async function bootstrap() {
 
   await app.startAllMicroservicesAsync();
 
-  const allowedOrigins = "https://app.airframes.io:* https://acars-frontend.onrender.com:* http://127.0.0.1:*"
+  const allowedOrigins = "*:*"
   const corsOptions = {
     "origins": allowedOrigins,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",

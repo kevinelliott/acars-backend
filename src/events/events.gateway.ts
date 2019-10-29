@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
-@WebSocketGateway({ origins: 'http://app.airframes.io:* https://app.airframes.io:* https://acars-frontend.onrender.com:* http://127.0.0.1:*' })
+@WebSocketGateway({ origins: '*:*' })
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
