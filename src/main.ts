@@ -20,7 +20,16 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservicesAsync();
-  app.enableCors();
+
+  const corsOptions = {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204,
+    "credentials":true
+  }
+  app.enableCors(corsOptions);
+
   await app.listen(3001);
 }
 bootstrap();
