@@ -25,6 +25,7 @@
     "@nestjs/microservices": "^6.8.3",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/platform-socket.io": "^6.8.3",
+    "@nestjs/serve-static": "^1.0.1",
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.8.3",
     "@types/socket.io": "^2.1.4",
