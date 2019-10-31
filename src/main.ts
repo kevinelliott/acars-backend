@@ -7,8 +7,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const fs = require('fs');
-  const keyFile  = fs.readFileSync('/etc/letsencrypt/live/acars-backend/privkey.pem');
-  const certFile = fs.readFileSync('/etc/letsencrypt/live/acars-backend/cert.pem');
+  const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
+  const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
   const app = await NestFactory.create(AppModule, {
     httpsOptions: {
       key: keyFile,
