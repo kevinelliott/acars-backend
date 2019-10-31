@@ -24,6 +24,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.connections++;
     this.clients[client.id] = client;
     this.logger.log('Browser connected.');
+    this.server.emit('clients', this.clients);
     this.server.emit('events', 'browser-connected');
   }
 
@@ -31,6 +32,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.connections--;
     this.clients.delete(client.id);
     this.logger.log('Browser disconnected.');
+    this.server.emit('clients', this.clients);
     this.server.emit('events', 'browser-disconnected');
   }
 
