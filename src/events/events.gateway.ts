@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Server } from 'socket.io';
+import { Socket, Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
@@ -20,7 +20,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   connections: number = 0;
   clients: Map<string, any> = new Map();
 
-  async handleConnection(client: any) {
+  async handleConnection(client: Socket, ...args: any[]) {
+    this.logger.log(`Client connected: ${client.id}`);
     this.connections++;
     this.clients[client.id] = client;
     this.logger.log('Browser connected.');
@@ -28,7 +29,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('events', 'browser-connected');
   }
 
-  async handleDisconnect(client) {
+  async handleDisconnect(client: Socket) {
+    this.logger.log(`Client disconnected: ${client.id}`);
     this.connections--;
     this.clients.delete(client.id);
     this.logger.log('Browser disconnected.');
