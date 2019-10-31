@@ -7,6 +7,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
   WsResponse,
+  OnGatewayInit,
 } from '@nestjs/websockets';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,11 +15,15 @@ import { Socket, Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
-export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
   connections: number = 0;
   clients: Map<string, any> = new Map();
+
+  async afterInit() {
+    this.logger.log('WebSocketGateway initialized.');
+  }
 
   async handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
@@ -52,13 +57,13 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  @SubscribeMessage('events')
-  handleEvents(@MessageBody() data: any): Observable<WsResponse<number>> {
-    return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
-  }
+  // @SubscribeMessage('events')
+  // handleEvents(@MessageBody() data: any): Observable<WsResponse<number>> {
+  //   return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
+  // }
 
-  @SubscribeMessage('identity')
-  async identity(@MessageBody() data: number): Promise<number> {
-    return data;
-  }
+  // @SubscribeMessage('identity')
+  // async identity(@MessageBody() data: number): Promise<number> {
+  //   return data;
+  // }
 }
