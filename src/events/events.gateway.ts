@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 import { Socket, Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
-@WebSocketGateway({ namespace: 'websockets', origins: '*:*', transports: ['polling', 'websocket'] })
+@WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
