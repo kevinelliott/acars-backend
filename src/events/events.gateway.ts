@@ -14,12 +14,12 @@ import { map } from 'rxjs/operators';
 import { Socket, Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
-@WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
+@WebSocketGateway({ namespace: 'websockets', origins: '*:*', transports: ['polling', 'websocket'] })
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
-  connections: number = 0;
-  clients: Map<string, any> = new Map();
+  connectionsCount: number = 0;
+  connections: Map<string, any> = new Map();
 
   async afterInit() {
     this.logger.log('WebSocketGateway initialized.');
@@ -27,25 +27,25 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   async handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
-    this.connections++;
-    this.clients[client.id] = client;
+    this.connectionsCount++;
+    this.connections[client.id] = client;
     this.logger.log('Browser connected.');
-    this.server.emit('clients', this.clients);
+    this.server.emit('clients', this.connections);
     this.server.emit('events', 'browser-connected');
   }
 
   async handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
-    this.connections--;
-    this.clients.delete(client.id);
+    this.connectionsCount--;
+    this.connections.delete(client.id);
     this.logger.log('Browser disconnected.');
-    this.server.emit('clients', this.clients);
+    this.server.emit('clients', this.connections);
     this.server.emit('events', 'browser-disconnected');
   }
 
   async broadcast(subject: string, data: any) {
-    if (this.connections > 0) {
-      this.logger.log("Broadcasting '" + subject + "' to " + this.connections + " browsers.");
+    if (this.connectionsCount > 0) {
+      this.logger.log("Broadcasting '" + subject + "' to " + this.connectionsCount + " browsers.");
       try {
         this.server.emit('events', 'broadcast');
         this.server.emit(subject, data);  
