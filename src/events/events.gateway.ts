@@ -18,15 +18,18 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
   connections: number = 0;
+  clients: Map<string, any> = new Map();
 
   async handleConnection(client: any) {
     this.connections++;
+    this.clients[client.id] = client;
     this.logger.log('Browser connected.');
     this.server.emit('events', 'browser-connected');
   }
 
   async handleDisconnect(client) {
     this.connections--;
+    this.clients.delete(client.id);
     this.logger.log('Browser disconnected.');
     this.server.emit('events', 'browser-disconnected');
   }

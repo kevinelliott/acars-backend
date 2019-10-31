@@ -34,6 +34,7 @@ export class ScheduleService extends NestSchedule {
   async intervalJob() {
     this.logger.log('Job running to gather and broadcast updated data.');
     this.eventsGateway.broadcast('events', 'interval-job');
+    this.eventsGateway.broadcast('socket_clients', this.eventsGateway.clients);
 
     let stations = await this.stationRepository.find();
     this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
