@@ -27,6 +27,9 @@ export class Station {
   @RelationCount('messages')
   public messagesCount?: number;
 
+  @Column({ name: 'last_update_at' })
+  lastUpdateAt: Date;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
