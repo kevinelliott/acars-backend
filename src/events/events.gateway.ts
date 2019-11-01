@@ -30,12 +30,14 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
     const clients = new Array();
     for(let [key, value] of this.connections) {
+      this.logger.log(this.connections)
       clients.push({
         id: value.id,
         rooms: value.rooms,
         handshake: value.handshake,
       });
     }
+    this.logger.log(clients);
     this.server.emit('clients', clients);
 
     this.server.emit('events', 'browser-connected');
