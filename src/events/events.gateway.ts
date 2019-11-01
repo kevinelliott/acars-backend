@@ -27,7 +27,17 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.connectionsCount++;
     this.connections[client.id] = client;
     this.logger.log('Browser connected.');
-    this.server.emit('clients', this.connections);
+
+    const clients = new Array();
+    for(let [key, value] of this.connections) {
+      clients.push({
+        id: value.id,
+        rooms: value.rooms,
+        handshake: value.handshake,
+      });
+    }
+    this.server.emit('clients', clients);
+
     this.server.emit('events', 'browser-connected');
   }
 
@@ -36,7 +46,17 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.connectionsCount--;
     this.connections.delete(client.id);
     this.logger.log('Browser disconnected.');
-    this.server.emit('clients', this.connections);
+
+    const clients = new Array();
+    for(let [key, value] of this.connections) {
+      clients.push({
+        id: value.id,
+        rooms: value.rooms,
+        handshake: value.handshake,
+      });
+    }
+    this.server.emit('clients', clients);
+
     this.server.emit('events', 'browser-disconnected');
   }
 
