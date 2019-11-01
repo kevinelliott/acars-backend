@@ -7,8 +7,9 @@ import { Station } from '../entities/station.entity';
 
 @Module({
   imports: [
+    EventsGateway,
     TypeOrmModule.forFeature([Station])
   ],
-  providers: [EventsGateway, ScheduleService],
+  providers: [ScheduleService],
 })
 export class ScheduleModule {}

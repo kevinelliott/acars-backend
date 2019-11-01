@@ -6,8 +6,7 @@ import { NatsController } from './nats.controller';
 import { Message } from '../entities/message.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Message])],
+  imports: [EventsGateway, TypeOrmModule.forFeature([Message])],
   controllers: [NatsController],
-  providers: [EventsGateway],
 })
 export class NatsModule {}
