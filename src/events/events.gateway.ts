@@ -26,11 +26,11 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.logger.log(`Client connected: ${client.id}`);
     this.connectionsCount++;
     this.connections[client.id] = client;
+    this.logger.log(this.connections)
     this.logger.log('Browser connected.');
 
     const clients = new Array();
     for(let [key, value] of this.connections) {
-      this.logger.log(this.connections)
       clients.push({
         id: value.id,
         rooms: value.rooms,
