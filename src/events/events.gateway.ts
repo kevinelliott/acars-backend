@@ -16,7 +16,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger(EventsGateway.name);
   connectionsCount: number = 0;
-  connections: Map<string, any> = new Map();
+  connections: Map<string, Socket> = new Map();
 
   async afterInit() {
     this.logger.log('WebSocketGateway initialized.');
@@ -26,17 +26,16 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.logger.log(`Client connected: ${client.id}`);
     this.connectionsCount++;
     this.connections[client.id] = client;
-    this.logger.log(this.connections)
     this.logger.log('Browser connected.');
 
     const clients = new Array();
-    for(let [key, value] of this.connections) {
+    Array.from(this.connections.values()).forEach((value: Socket) => {
       clients.push({
         id: value.id,
         rooms: value.rooms,
         handshake: value.handshake,
       });
-    }
+    });
     this.logger.log(clients);
     this.server.emit('clients', clients);
 
