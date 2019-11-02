@@ -25,7 +25,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   async handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
     this.connectionsCount++;
-    this.connections[client.id] = client;
+    this.connections.set(client.id, client);
     this.logger.log('Browser connected.');
 
     const clients = new Array();
