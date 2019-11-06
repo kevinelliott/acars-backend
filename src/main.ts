@@ -7,14 +7,20 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const fs = require('fs');
-  const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
-  const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
-  const app = await NestFactory.create(AppModule, {
-    httpsOptions: {
-      key: keyFile,
-      cert: certFile,
-    }
-  });
+  let app;
+
+  if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
+    const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
+    const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
+    app = await NestFactory.create(AppModule, {
+      httpsOptions: {
+        key: keyFile,
+        cert: certFile,
+      }
+    });
+  } else {
+    app = await NestFactory.create(AppModule, {});
+  }
 
   const eventsMicroservice = app.connectMicroservice({
     transport: Transport.TCP,
@@ -39,6 +45,10 @@ async function bootstrap() {
   }
   app.enableCors(corsOptions);
 
-  await app.listen(443);
+  if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
+    await app.listen(443);
+  } else {
+    await app.listen(3001);
+  }
 }
 bootstrap();
