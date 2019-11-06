@@ -37,6 +37,7 @@ class ConfigService {
       natsUrl: 'https://' + this.getValue('NATS_HOST') + ':' + this.getValue('NATS_PORT'),
     }
   }
+
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
       type: 'postgres',

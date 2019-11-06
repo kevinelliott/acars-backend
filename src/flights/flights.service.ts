@@ -19,7 +19,7 @@ export class FlightsService {
   async getFlight(id): Promise<Object> {
     return await this.flightRepository
       .findOne(id, {
-        relations: ["messages"]
+        relations: ["airframe", "messages"]
       });
   }
 }
