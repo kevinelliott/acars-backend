@@ -8,18 +8,23 @@ import { configService } from './config/config.service';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
+import { AdminStatsModule } from './admin/stats/admin_stats.module';
 import { EventsModule } from './events/events.module';
+import { FlightsModule } from './flights/flights.module';
 import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
+    AdminStatsModule,
     EventsModule,
+    FlightsModule,
     NatsModule,
     ScheduleModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'public'),
+    // }),
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [AppController],
