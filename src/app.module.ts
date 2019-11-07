@@ -12,6 +12,7 @@ import { AppService } from './app.service';
 import { AdminStatsModule } from './admin/stats/admin_stats.module';
 import { EventsModule } from './events/events.module';
 import { FlightsModule } from './flights/flights.module';
+import { MessagesModule } from './messages/messages.module';
 import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
 
@@ -20,6 +21,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     AdminStatsModule,
     EventsModule,
     FlightsModule,
+    MessagesModule,
     NatsModule,
     ScheduleModule,
     // ServeStaticModule.forRoot({
