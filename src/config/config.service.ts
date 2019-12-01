@@ -64,7 +64,7 @@ class ConfigService {
         migrationsDir: 'src/migration',
       },
 
-      ssl: false,
+      ssl: true,
     };
   }
 
