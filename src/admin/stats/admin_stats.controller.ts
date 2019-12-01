@@ -16,4 +16,24 @@ export class AdminStatsController {
     return this.adminStatsService.getErrors();
   }
 
+  @Get('flights')
+  getFlights(): Promise<Object> {
+    return this.adminStatsService.getFlights();
+  }
+
+  @Get('frequencies')
+  getFrequencies(): Promise<Object> {
+    return this.adminStatsService.getFrequencies();
+  }
+
+  @Get('labels')
+  getLabels(): Promise<Object> {
+    return this.adminStatsService.getLabels();
+  }
+
+  @Get('stations')
+  getStations(): Promise<Object> {
+    return this.adminStatsService.getStations();
+  }
+
 }

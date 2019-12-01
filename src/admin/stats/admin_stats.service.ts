@@ -75,4 +75,32 @@ export class AdminStatsService {
       errors: errorStats
     };
   }
+
+  async getFlights(): Promise<Object> {
+    let flightCount = await this.getFlightCount();
+
+    return {
+      flights: flightCount
+    };
+  }
+
+  async getFrequencies(): Promise<Object> {
+    return {
+      frequencies: []
+    };
+  }
+
+  async getLabels(): Promise<Object> {
+    let labelStats = await this.getMessageLabelStats();
+
+    return {
+      labels: labelStats
+    };
+  }
+
+  async getStations(): Promise<Object> {
+    return {
+      stations: []
+    };
+  }
 }
