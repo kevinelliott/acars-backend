@@ -56,7 +56,7 @@ export class AdminStatsService {
     let errorStats = await this.getMessageErrorStats();
     let labelStats = await this.getMessageLabelStats();
     let flightCount = await this.getFlightCount();
-  
+
     return {
       airlines: [],
       airframes: airframeCount,
@@ -65,6 +65,14 @@ export class AdminStatsService {
       frequencies: [],
       labels: labelStats,
       stations: [],
+    };
+  }
+
+  async getErrors(): Promise<Object> {
+    let errorStats = await this.getMessageErrorStats();
+
+    return {
+      errors: errorStats
     };
   }
 }

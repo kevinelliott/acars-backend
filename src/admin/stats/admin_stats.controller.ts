@@ -10,4 +10,10 @@ export class AdminStatsController {
   getStats(): Promise<Object> {
     return this.adminStatsService.getStats();
   }
+
+  @Get('errors')
+  getErrors(): Promise<Object> {
+    return this.adminStatsService.getErrors();
+  }
+
 }
