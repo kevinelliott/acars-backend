@@ -68,6 +68,22 @@ export class AdminStatsService {
     };
   }
 
+  async getAirlines(): Promise<Object> {
+    let airlines = [];
+
+    return {
+      airlines: airlines
+    };
+  }
+
+  async getAirframes(): Promise<Object> {
+    let airframeCount = await this.getAirframeCount();
+
+    return {
+      airframes: airframeCount
+    };
+  }
+
   async getErrors(): Promise<Object> {
     let errorStats = await this.getMessageErrorStats();
 

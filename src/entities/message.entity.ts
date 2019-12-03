@@ -30,6 +30,18 @@ export class Message {
   flight: Flight;
 
   @Column()
+  source: string;
+
+  @Column({ name: 'link_direction' })
+  linkDirection: string;
+
+  @Column({ name: 'from_hex' })
+  fromHex: string;
+
+  @Column({ name: 'to_hex' })
+  toHex: string;
+
+  @Column()
   timestamp: Date;
 
   @Column()
@@ -66,7 +78,25 @@ export class Message {
   ack: string;
 
   @Column('text')
+  data: string;
+
+  @Column('text')
   text: string;
+
+  @Column({ name: 'departing_airport' })
+  departingAirport: string;
+
+  @Column({ name: 'destination_airport' })
+  destinationAirport: string;
+
+  @Column('float')
+  latitude: number;
+
+  @Column('float')
+  longitude: number;
+
+  @Column()
+  altitude: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -11,6 +11,16 @@ export class AdminStatsController {
     return this.adminStatsService.getStats();
   }
 
+  @Get('airlines')
+  getAirlines(): Promise<Object> {
+    return this.adminStatsService.getAirlines();
+  }
+
+  @Get('airframes')
+  getAirframes(): Promise<Object> {
+    return this.adminStatsService.getAirframes();
+  }
+
   @Get('errors')
   getErrors(): Promise<Object> {
     return this.adminStatsService.getErrors();
