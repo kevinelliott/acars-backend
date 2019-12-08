@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { Cron, Interval, Timeout, NestSchedule } from 'nest-schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Timestamp } from 'typeorm';
 
 import { EventsGateway } from '../events/events.gateway';
 import { Flight } from '../entities/flight.entity';
@@ -40,6 +40,14 @@ export class ScheduleService extends NestSchedule {
     let stations = await this.stationRepository.find();
     this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
     this.eventsGateway.broadcast('stations', stations)
+
+    // Update inactive flights
+    await this.flightRepository
+      .createQueryBuilder()
+      .update(Flight)
+      .set({ status: 'radio-silence' })
+      .where("status = :status AND updated_at <= (timezone('utc', now()) - interval '10 minutes')", { status: 'in-flight' })
+      .execute();
 
     let activeFlights = await this.flightRepository.find({
       relations: ['airframe'],
