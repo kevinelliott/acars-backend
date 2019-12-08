@@ -22,4 +22,13 @@ export class FlightsService {
         relations: ["airframe", "messages"]
       });
   }
+
+  async getActiveFlights(): Promise<Object> {
+    return await this.flightRepository
+      .find({
+        where: {
+          status: 'in-flight'
+        }
+      });
+  }
 }

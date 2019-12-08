@@ -6,6 +6,12 @@ import { FlightsService } from './flights.service';
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
+  @Get('active')
+  findActive(@Param() params): Promise<Object> {
+    console.log(params);
+    return this.flightsService.getActiveFlights();
+  }
+
   @Get(':id')
   findOne(@Param() params): Promise<Object> {
     console.log(params.id);
