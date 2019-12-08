@@ -26,6 +26,7 @@ export class FlightsService {
   async getActiveFlights(): Promise<Object> {
     return await this.flightRepository
       .find({
+        relations: ['airframe'],
         where: {
           status: 'in-flight'
         }
