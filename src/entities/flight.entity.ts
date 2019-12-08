@@ -31,6 +31,24 @@ export class Flight {
   @RelationCount('messages')
   public messagesCount?: number;
 
+  @Column()
+  status: string;
+
+  @Column({ name: 'departing_airport' })
+  departingAirport: string;
+
+  @Column({ name: 'destination_airport' })
+  destinationAirport: string;
+
+  @Column()
+  latitude: Number;
+
+  @Column()
+  longitude: Number;
+
+  @Column()
+  altitude: Number;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
