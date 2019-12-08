@@ -7,14 +7,14 @@ export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
   @Get('active')
-  findActive(@Param() params): Promise<Object> {
+  async findActive(@Param() params): Promise<Object> {
     console.log(params);
     console.log('Getting active flights');
     return this.flightsService.getActiveFlights();
   }
 
   @Get(':id')
-  findOne(@Param() params): Promise<Object> {
+  async findOne(@Param() params): Promise<Object> {
     console.log(params.id);
     return this.flightsService.getFlight(params.id);
   }
