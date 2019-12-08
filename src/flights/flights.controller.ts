@@ -9,6 +9,7 @@ export class FlightsController {
   @Get('active')
   findActive(@Param() params): Promise<Object> {
     console.log(params);
+    console.log('Getting active flights');
     return this.flightsService.getActiveFlights();
   }
 
