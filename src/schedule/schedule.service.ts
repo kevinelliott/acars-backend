@@ -42,6 +42,7 @@ export class ScheduleService extends NestSchedule {
     this.eventsGateway.broadcast('stations', stations)
 
     let activeFlights = await this.flightRepository.find({
+      relations: ['airframe'],
       where: { status: 'in-flight' }
     });
     this.logger.log('Preparing to broadcast ' + activeFlights.length + ' active flights.');
