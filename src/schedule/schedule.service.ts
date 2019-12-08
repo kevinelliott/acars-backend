@@ -46,7 +46,7 @@ export class ScheduleService extends NestSchedule {
       .createQueryBuilder()
       .update(Flight)
       .set({ status: 'radio-silence' })
-      .where("status = :status AND updated_at <= (timezone('utc', now()) - interval '10 minutes')", { status: 'in-flight' })
+      .where("status = :status AND updated_at <= (timezone('utc', now()) - interval '5 minutes')", { status: 'in-flight' })
       .execute();
 
     let activeFlights = await this.flightRepository.find({
