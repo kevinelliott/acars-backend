@@ -59,9 +59,9 @@ async function bootstrap() {
   app.enableCors(corsOptions);
 
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
-    await app.listen(443);
+    await app.listen(443, '0.0.0.0');
   } else {
-    await app.listen(3001);
+    await app.listen(3001, '0.0.0.0');
   }
 }
 bootstrap();
