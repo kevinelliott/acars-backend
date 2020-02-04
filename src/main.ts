@@ -32,7 +32,11 @@ async function bootstrap() {
     );
   } else {
     LogRocket.init('6n9b7u/acars-dev');
-    app = await NestFactory.create(AppModule, {});
+    app = await NestFactory.create<NestFastifyApplication>(
+      AppModule,
+      new FastifyAdapter(),
+      {}
+    );
   }
 
   const eventsMicroservice = app.connectMicroservice({
@@ -48,7 +52,6 @@ async function bootstrap() {
 
   await app.startAllMicroservicesAsync();
 
-  const allowedOrigins = "*:*"
   const corsOptions = {
     "origin": ['https://app.airframes.io', /.*$/, 'http://localhost'],
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
