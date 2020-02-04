@@ -6,8 +6,6 @@ import {
   WebSocketServer,
   OnGatewayInit,
 } from '@nestjs/websockets';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Socket, Server } from 'socket.io';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
@@ -66,7 +64,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
       this.logger.log("Broadcasting '" + subject + "' to " + this.connectionsCount + " browsers.");
       try {
         this.server.emit('events', 'broadcast');
-        this.server.emit(subject, data);  
+        this.server.emit(subject, data);
       } catch (e) {
         this.logger.log(e);
       }
