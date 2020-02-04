@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { AdminStatsModule } from './admin/stats/admin_stats.module';
+import { AirframesModule } from './airframes/airframes.module';
 import { EventsModule } from './events/events.module';
 import { FlightsModule } from './flights/flights.module';
 import { MessagesModule } from './messages/messages.module';
@@ -19,6 +20,7 @@ import { ScheduleModule } from './schedule/schedule.module';
 @Module({
   imports: [
     AdminStatsModule,
+    AirframesModule,
     EventsModule,
     FlightsModule,
     MessagesModule,

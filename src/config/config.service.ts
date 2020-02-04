@@ -64,7 +64,7 @@ class ConfigService {
         migrationsDir: 'src/migration',
       },
 
-      ssl: true,
+      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
   }
 

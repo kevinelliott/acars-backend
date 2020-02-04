@@ -1,5 +1,11 @@
+import * as LogRocket from 'logrocket';
+
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 import { configService } from './config/config.service';
 
@@ -10,15 +16,22 @@ async function bootstrap() {
   let app;
 
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
+    LogRocket.init('6n9b7u/acars');
+
     const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
     const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
-    app = await NestFactory.create(AppModule, {
-      httpsOptions: {
-        key: keyFile,
-        cert: certFile,
+    app = await NestFactory.create<NestFastifyApplication>(
+      AppModule,
+      new FastifyAdapter(),
+      {
+        httpsOptions: {
+          key: keyFile,
+          cert: certFile,
+        }
       }
-    });
+    );
   } else {
+    LogRocket.init('6n9b7u/acars-dev');
     app = await NestFactory.create(AppModule, {});
   }
 

@@ -6,6 +6,12 @@ import { FlightsService } from './flights.service';
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
+  @Get()
+  async findAll(@Param() params): Promise<Object> {
+    console.log('Getting all flights');
+    return this.flightsService.getAllFlights();
+  }
+
   @Get('active')
   async findActive(@Param() params): Promise<Object> {
     console.log(params);
