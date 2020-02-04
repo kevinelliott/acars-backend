@@ -38,8 +38,9 @@ class ConfigService {
     }
   }
 
-  public getTypeOrmConfig(): TypeOrmModuleOptions {
+  public getDefaultDbConfig(): TypeOrmModuleOptions {
     return {
+      name: 'default',
       type: 'postgres',
 
       host: this.getValue('DATABASE_HOST'),
@@ -68,6 +69,30 @@ class ConfigService {
     };
   }
 
+  public getReadOnlyDbConfig(): TypeOrmModuleOptions {
+    return {
+      name: 'readonly',
+      type: 'postgres',
+
+      host: this.getValue('READONLY_DATABASE_HOST'),
+      port: parseInt(this.getValue('READONLY_DATABASE_PORT')),
+      username: this.getValue('READONLY_DATABASE_USER'),
+      password: this.getValue('READONLY_DATABASE_PASS'),
+      database: this.getValue('READONLY_DATABASE_NAME'),
+
+      entities: ['dist/**/*.entity{.ts,.js}'],
+
+      poolErrorHandler: function(err: any) {
+        this.logger.error(err);
+      },
+
+      logging: ['query', 'error'],
+      synchronize: false,
+
+      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
+    };
+  }
+
 }
 
 const requiredVars = [
@@ -76,7 +101,11 @@ const requiredVars = [
   'DATABASE_USER',
   'DATABASE_NAME',
   'NATS_HOST',
-  'NATS_PORT'
+  'NATS_PORT',
+  'READONLY_DATABASE_HOST',
+  'READONLY_DATABASE_PORT',
+  'READONLY_DATABASE_USER',
+  'READONLY_DATABASE_NAME',
 ];
 
 const logger = new Logger('ConfigService');

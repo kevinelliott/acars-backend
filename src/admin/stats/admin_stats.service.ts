@@ -10,10 +10,10 @@ import { Station } from '../../entities/station.entity';
 @Injectable()
 export class AdminStatsService {
   constructor(
-    @InjectRepository(Airframe) private readonly airframeRepository: Repository<Station>,
-    @InjectRepository(Flight) private readonly flightRepository: Repository<Station>,
-    @InjectRepository(Message) private readonly messageRepository: Repository<Message>,
-    @InjectRepository(Station) private readonly stationRepository: Repository<Station>,
+    @InjectRepository(Airframe, 'readonly') private readonly airframeRepository: Repository<Airframe>,
+    @InjectRepository(Flight, 'readonly') private readonly flightRepository: Repository<Flight>,
+    @InjectRepository(Message, 'readonly') private readonly messageRepository: Repository<Message>,
+    @InjectRepository(Station, 'readonly') private readonly stationRepository: Repository<Station>,
   ) { }
 
   async getAirframeCount(): Promise<Object> {

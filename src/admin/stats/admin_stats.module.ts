@@ -11,10 +11,10 @@ import { Station } from '../../entities/station.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Airframe]),
-    TypeOrmModule.forFeature([Flight]),
-    TypeOrmModule.forFeature([Message]),
-    TypeOrmModule.forFeature([Station]),
+    TypeOrmModule.forFeature([Airframe], 'readonly'),
+    TypeOrmModule.forFeature([Flight], 'readonly'),
+    TypeOrmModule.forFeature([Message], 'readonly'),
+    TypeOrmModule.forFeature([Station], 'readonly'),
   ],
   controllers: [AdminStatsController],
   providers: [AdminStatsService],

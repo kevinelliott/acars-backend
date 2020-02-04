@@ -8,13 +8,13 @@ export class MessagesController {
 
   @Get()
   findAll(@Query() params): Promise<Object> {
-    console.log(params);
+    console.log('API: Getting all messages');
     return this.messagesService.getMessages(params);
   }
 
   @Get(':id')
   findOne(@Param() params): Promise<Object> {
-    console.log(params.id);
+    console.log(`API: Getting message ${params.id}`);
     return this.messagesService.getMessage(params.id);
   }
 }

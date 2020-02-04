@@ -8,20 +8,19 @@ export class FlightsController {
 
   @Get()
   async findAll(@Param() params): Promise<Object> {
-    console.log('Getting all flights');
+    console.log('API: Getting all flights');
     return this.flightsService.getAllFlights();
   }
 
   @Get('active')
   async findActive(@Param() params): Promise<Object> {
-    console.log(params);
-    console.log('Getting active flights');
+    console.log('API: Getting active flights');
     return this.flightsService.getActiveFlights();
   }
 
   @Get(':id')
   async findOne(@Param() params): Promise<Object> {
-    console.log(params.id);
+    console.log(`API: Getting flight ${params.id}`);
     return this.flightsService.getFlight(params.id);
   }
 }

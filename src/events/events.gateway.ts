@@ -7,7 +7,6 @@ import {
   OnGatewayInit,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {

@@ -29,11 +29,15 @@ import { ScheduleModule } from './schedule/schedule.module';
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', 'public'),
     // }),
-    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    TypeOrmModule.forRoot(configService.getDefaultDbConfig()),
+    TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(
+    private readonly connection: Connection,
+    private readonly readOnlyConnection: Connection
+  ) {}
 }
