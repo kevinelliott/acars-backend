@@ -1,11 +1,6 @@
 import * as LogRocket from 'logrocket';
-
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
 
 import { configService } from './config/config.service';
 
@@ -20,23 +15,15 @@ async function bootstrap() {
 
     const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
     const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
-    app = await NestFactory.create<NestFastifyApplication>(
-      AppModule,
-      new FastifyAdapter(),
-      {
-        httpsOptions: {
-          key: keyFile,
-          cert: certFile,
-        }
+    app = await NestFactory.create(AppModule, {
+      httpsOptions: {
+        key: keyFile,
+        cert: certFile,
       }
-    );
+    });
   } else {
     LogRocket.init('6n9b7u/acars-dev');
-    app = await NestFactory.create<NestFastifyApplication>(
-      AppModule,
-      new FastifyAdapter(),
-      {}
-    );
+    app = await NestFactory.create(AppModule, {});
   }
 
   const eventsMicroservice = app.connectMicroservice({
@@ -52,8 +39,9 @@ async function bootstrap() {
 
   await app.startAllMicroservicesAsync();
 
+  const allowedOrigins = "*:*"
   const corsOptions = {
-    "origin": ['https://app.airframes.io', /.*$/, 'http://localhost'],
+    "origins": allowedOrigins,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
     "optionsSuccessStatus": 204,
@@ -62,9 +50,9 @@ async function bootstrap() {
   app.enableCors(corsOptions);
 
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
-    await app.listen(443, '0.0.0.0');
+    await app.listen(443);
   } else {
-    await app.listen(3001, '0.0.0.0');
+    await app.listen(3001);
   }
 }
 bootstrap();
