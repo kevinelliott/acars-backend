@@ -50,7 +50,7 @@ async function bootstrap() {
 
   const allowedOrigins = "*:*"
   const corsOptions = {
-    "origin": ['https://app.airframes.io', /\.local$/, 'http://localhost'],
+    "origin": ['https://app.airframes.io', /.*$/, 'http://localhost'],
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
     "optionsSuccessStatus": 204,
