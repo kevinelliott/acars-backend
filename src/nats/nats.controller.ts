@@ -22,7 +22,7 @@ export class NatsController {
 
     const result = await this.messageRepository.find({
       relations: ['station', 'airframe', 'flight'],
-      where: { id: data.ID }
+      where: { id: data.id }
     })
 
     this.eventsGateway.broadcast('newMessages', result);
