@@ -32,6 +32,9 @@ export class Message {
   @Column()
   source: string;
 
+  @Column({ name: 'source_type' })
+  sourceType: string;
+
   @Column({ name: 'link_direction' })
   linkDirection: string;
 

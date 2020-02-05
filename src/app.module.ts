@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { MorganModule, MorganInterceptor } from 'nest-morgan';
+import { RavenModule } from 'nest-raven';
+import { StatusMonitorModule } from 'nest-status-monitor';
 
 import { configService } from './config/config.service';
 
@@ -17,14 +19,46 @@ import { MessagesModule } from './messages/messages.module';
 import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
 
+const statusMonitorConfig = {
+  pageTitle: 'Nest.js Monitoring Page',
+  port: 3001,
+  path: '/status',
+  ignoreStartsWith: '/health/alive',
+  spans: [
+    {
+      interval: 1, // Every second
+      retention: 60, // Keep 60 datapoints in memory
+    },
+    {
+      interval: 5, // Every 5 seconds
+      retention: 60,
+    },
+    {
+      interval: 15, // Every 15 seconds
+      retention: 60,
+    }
+  ],
+  chartVisibility: {
+    cpu: true,
+    mem: true,
+    load: true,
+    responseTime: true,
+    rps: true,
+    statusCodes: true,
+  },
+  healthChecks: []
+}
 @Module({
   imports: [
+    MorganModule.forRoot(),
+    StatusMonitorModule.setUp(statusMonitorConfig),
     AdminStatsModule,
     AirframesModule,
     EventsModule,
     FlightsModule,
     MessagesModule,
     NatsModule,
+    RavenModule,
     ScheduleModule,
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', 'public'),
@@ -33,7 +67,13 @@ import { ScheduleModule } from './schedule/schedule.module';
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MorganInterceptor('dev'),
+    }
+  ],
 })
 export class AppModule {
   constructor(

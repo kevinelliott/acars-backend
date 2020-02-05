@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, UseInterceptors} from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -7,6 +7,7 @@ import {
   OnGatewayInit,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
+import { RavenInterceptor } from 'nest-raven';
 
 @WebSocketGateway({ origins: '*:*', transports: ['polling', 'websocket'] })
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -19,6 +20,9 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.logger.log('WebSocketGateway initialized.');
   }
 
+  @UseInterceptors(new RavenInterceptor({
+    context: 'Ws'
+  }))
   async handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
     this.connectionsCount++;
