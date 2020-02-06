@@ -65,6 +65,7 @@ class ConfigService {
         migrationsDir: 'src/migration',
       },
 
+      cache: true,
       ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
   }
@@ -89,6 +90,7 @@ class ConfigService {
       logging: ['query', 'error'],
       synchronize: false,
 
+      cache: true,
       ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
   }
