@@ -32,7 +32,7 @@ export class ScheduleService extends NestSchedule {
   //   console.log('executing once job');
   // }
 
-  @Interval(3000)
+  @Interval(5000)
   async intervalJob() {
     this.logger.log('Job running to gather and broadcast updated data.');
     // this.eventsGateway.broadcast('events', 'interval-job');
