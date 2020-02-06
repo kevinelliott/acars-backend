@@ -90,7 +90,7 @@ class ConfigService {
       logging: ['query', 'error'],
       synchronize: false,
 
-      cache: true,
+      cache: false,
       ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
   }

@@ -38,7 +38,6 @@ export class ScheduleService extends NestSchedule {
     // this.eventsGateway.broadcast('events', 'interval-job');
 
     let stations = await this.stationRepository.find({
-      cache: 2000,
     });
     this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
     this.eventsGateway.broadcast('stations', stations)
