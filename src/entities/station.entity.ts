@@ -9,6 +9,7 @@ import {
   OneToMany,
   ManyToMany,
   RelationCount,
+  createQueryBuilder,
 } from 'typeorm';
 
 import { Airframe } from './airframe.entity';
@@ -44,6 +45,11 @@ export class Station {
 
   @AfterLoad()
   setMessagesCount() {
-    this.messagesCount = 10000000;
+    createQueryBuilder(Message)
+      .where({ stationId: this.id })
+      .getCount()
+    .then(result => {
+        this.messagesCount = result;
+    });
   }
 }
