@@ -21,7 +21,7 @@ import { ScheduleModule } from './schedule/schedule.module';
 
 const statusMonitorConfig = {
   pageTitle: 'Nest.js Monitoring Page',
-  port: 3001,
+  port: 443,
   path: '/status',
   ignoreStartsWith: '/health/alive',
   spans: [
