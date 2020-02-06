@@ -26,7 +26,7 @@ export class NatsController {
     });
 
     const nowUTC = Date.now();
-    const messageTime = Date.parse(message.timestamp.toUTCString());
+    const messageTime = Date.parse(message.createdAt.toUTCString());
     const delay = nowUTC - messageTime;
     const delayInSeconds = Math.floor(delay / 1000);
     this.logger.log(`Retrieved Message from DB - Message: #${message.id}, Current Time: ${nowUTC}, Message Time: ${messageTime}, Delay: ${delayInSeconds} seconds`);
