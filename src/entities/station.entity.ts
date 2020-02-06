@@ -46,7 +46,7 @@ export class Station {
   @AfterLoad()
   setMessagesCount() {
     createQueryBuilder(Message)
-      .where({ stationId: this.id })
+      .where('station_id = :id', { id: this.id })
       .getCount()
     .then(result => {
         this.messagesCount = result;
