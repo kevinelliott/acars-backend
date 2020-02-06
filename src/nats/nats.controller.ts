@@ -18,15 +18,20 @@ export class NatsController {
 
   @EventPattern('message.created')
   async handleMessageCreated(data: Record<string, unknown>) {
-    this.logger.log(`Message created event called: Current Time: ${Date.now()}`);
+    this.logger.log(`Received Message created event from NATS - Message: #${data.id}, Current Time: ${Date.now()}`);
 
     const message: Message = await this.messageRepository.findOne({
       relations: ['station', 'airframe', 'flight'],
       where: { id: data.id }
     });
-    this.logger.log(`Message: # ${data.id}, Current Time: ${Date.now()}, Message Time: ${message.timestamp}, Delay: ${Date.now() - Date.parse(message.timestamp.toUTCString())}`);
+
+    const nowUTC = Date.now();
+    const messageTime = Date.parse(message.timestamp.toUTCString());
+    const delay = nowUTC - messageTime;
+    const delayInSeconds = Math.floor(delay / 1000);
+    this.logger.log(`Retrieved Message from DB - Message: #${message.id}, Current Time: ${nowUTC}, Message Time: ${messageTime}, Delay: ${delayInSeconds} seconds`);
 
     await this.eventsGateway.broadcast('newMessages', message);
-    this.logger.log(`Message broadcasted to browsers: Current Time: ${Date.now()}`);
+    this.logger.log(`Broadcasting Message to browsers - Message: #${message.id}, Current Time: ${Date.now()}`);
   }
 }
