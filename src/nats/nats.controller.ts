@@ -26,15 +26,16 @@ export class NatsController {
       where: { id: data.id }
     });
     const meetingFoundTime = Date.now();
+    let secondsSinceEventReceived = (meetingFoundTime - eventReceivedTime) / 1000;
 
     const messageTime = Date.parse(message.createdAt.toUTCString());
     const delay = meetingFoundTime - messageTime;
-    const delayInSeconds = Math.floor(delay / 1000);
-    this.logger.log(`Retrieved Message from DB - Message: #${message.id}, Current Time: ${meetingFoundTime}, Message Time: ${messageTime}, Delay: ${delayInSeconds} seconds`);
+    const delayInSeconds = delay / 1000;
+    this.logger.log(`Retrieved Message from DB - Message: #${message.id}, Current Time: ${meetingFoundTime}, Message Time: ${messageTime}, Time since Event Received: ${secondsSinceEventReceived} seconds, Delay since Message create: ${delayInSeconds} seconds`);
 
     await this.eventsGateway.broadcast('newMessages', message);
     const broadcastedTime = Date.now();
-    const secondsSinceEventReceived = (broadcastedTime - eventReceivedTime) / 1000;
+    secondsSinceEventReceived = (broadcastedTime - eventReceivedTime) / 1000;
     this.logger.log(`Broadcasting Message to browsers - Message: #${message.id}, Current Time: ${broadcastedTime}, Time since Event Received: ${secondsSinceEventReceived} seconds`);
   }
 }
