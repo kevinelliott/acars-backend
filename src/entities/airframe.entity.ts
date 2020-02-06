@@ -1,4 +1,5 @@
 import {
+  AfterLoad,
   Entity,
   Column,
   CreateDateColumn,
@@ -25,7 +26,6 @@ export class Airframe {
   @OneToMany(type => Message, message => message.airframe)
   messages: Message[];
 
-  @RelationCount('messages')
   public messagesCount?: number;
 
   @OneToMany(type => Flight, flight => flight.airframe)
@@ -53,4 +53,9 @@ export class Airframe {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @AfterLoad()
+  setMessagesCount() {
+    this.messagesCount = 10000000;
+  }
 }
