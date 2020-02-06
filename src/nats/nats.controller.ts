@@ -33,7 +33,7 @@ export class NatsController {
     const delayInSeconds = delay / 1000;
     this.logger.log(`Retrieved Message from DB - Message: #${message.id}, Current Time: ${meetingFoundTime}, Message Time: ${messageTime}, Time since Event Received: ${secondsSinceEventReceived} seconds, Delay since Message create: ${delayInSeconds} seconds`);
 
-    await this.eventsGateway.broadcast('newMessages', message);
+    await this.eventsGateway.broadcast('newMessages', [message]);
     const broadcastedTime = Date.now();
     secondsSinceEventReceived = (broadcastedTime - eventReceivedTime) / 1000;
     this.logger.log(`Broadcasting Message to browsers - Message: #${message.id}, Current Time: ${broadcastedTime}, Time since Event Received: ${secondsSinceEventReceived} seconds`);
