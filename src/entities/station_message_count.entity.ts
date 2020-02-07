@@ -20,6 +20,6 @@ export class StationMessageCount {
   @Column({ name: 'station_id' })
   stationId: number;
 
-  @Column({ name: 'message_counts' })
+  @Column({ name: 'messages_count' })
   messagesCount: number;
 }
