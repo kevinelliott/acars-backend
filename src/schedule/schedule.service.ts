@@ -37,9 +37,11 @@ export class ScheduleService extends NestSchedule {
     this.logger.log('Job running to gather and broadcast updated data.');
     // this.eventsGateway.broadcast('events', 'interval-job');
 
-    let stations = await this.stationRepository.find({});
+    let stations = await this.stationRepository.find({
+      relations: ['stationMessageCount']
+    });
     this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
-    this.eventsGateway.broadcast('stations', stations)
+    this.eventsGateway.broadcast('stations', stations);
 
     // Update inactive flights
     await this.flightRepository

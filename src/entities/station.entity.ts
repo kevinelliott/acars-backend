@@ -7,6 +7,7 @@ import {
   JoinTable,
   PrimaryGeneratedColumn,
   OneToMany,
+  OneToOne,
   ManyToMany,
   RelationCount,
   createQueryBuilder,
@@ -14,6 +15,7 @@ import {
 
 import { Airframe } from './airframe.entity';
 import { Message } from './message.entity';
+import { StationMessageCount } from './station_message_count.entity';
 
 @Entity('stations')
 export class Station {
@@ -28,6 +30,9 @@ export class Station {
 
   @OneToMany(type => Message, message => message.station)
   messages: [];
+
+  @OneToOne(type => Station, station => station.id)
+  stationMessageCount: StationMessageCount;
 
   public messagesCount?: number;
 
@@ -45,11 +50,12 @@ export class Station {
 
   @AfterLoad()
   setMessagesCount() {
-    createQueryBuilder(Message)
-      .where('station_id = :id', { id: this.id })
-      .getCount()
-    .then(result => {
-        this.messagesCount = result;
-    });
+    // createQueryBuilder(Message)
+    //   .where('station_id = :id', { id: this.id })
+    //   .getCount()
+    // .then(result => {
+    //     this.messagesCount = result;
+    // });
+    this.messagesCount = this.stationMessageCount.messageCounts;
   }
 }
