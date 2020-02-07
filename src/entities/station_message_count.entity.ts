@@ -14,6 +14,7 @@ export class StationMessageCount {
   id: number;
 
   @OneToOne(type => Station, station => station.stationMessageCount)
+  @JoinColumn({ name: 'station_id' })
   station: Station;
 
   @Column({ name: 'station_id' })
