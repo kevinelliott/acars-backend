@@ -31,7 +31,7 @@ export class Station {
   @OneToMany(type => Message, message => message.station)
   messages: [];
 
-  @OneToOne(type => StationMessageCount, stationMessageCount => stationMessageCount.stationId)
+  @OneToOne(type => StationMessageCount, stationMessageCount => stationMessageCount.station)
   stationMessageCount: StationMessageCount;
 
   public messagesCount?: number;

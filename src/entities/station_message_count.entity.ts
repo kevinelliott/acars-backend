@@ -13,7 +13,7 @@ export class StationMessageCount {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => Station, station => station.id)
+  @OneToOne(type => Station, station => station.stationMessageCount)
   @JoinColumn({ name: 'station_id' })
   station: Station;
 
