@@ -1,17 +1,21 @@
 import {
-  Entity,
   Column,
+  Entity,
   JoinColumn,
+  PrimaryGeneratedColumn,
   OneToOne,
-  PrimaryColumn,
 } from 'typeorm';
 
 import { Station } from './station.entity';
 
 @Entity('stations')
 export class StationMessageCount {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @OneToOne(type => Station, station => station.id)
+  station: Station;
+
   @JoinColumn()
   stationId: number;
 
