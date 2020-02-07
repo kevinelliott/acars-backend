@@ -32,7 +32,6 @@ export class Station {
   messages: [];
 
   @OneToOne(type => Station, station => station.id)
-  @JoinColumn()
   stationMessageCount: StationMessageCount;
 
   public messagesCount?: number;
