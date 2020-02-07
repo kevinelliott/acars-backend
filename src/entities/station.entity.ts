@@ -56,6 +56,6 @@ export class Station {
     // .then(result => {
     //     this.messagesCount = result;
     // });
-    this.messagesCount = this.stationMessageCount.messageCounts;
+    this.messagesCount = this.stationMessageCount.messagesCount;
   }
 }
