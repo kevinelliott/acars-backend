@@ -20,15 +20,15 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^6.11.5",
-    "@nestjs/core": "^6.11.5",
-    "@nestjs/microservices": "^6.11.5",
-    "@nestjs/platform-express": "^6.11.5",
-    "@nestjs/platform-socket.io": "^6.11.5",
+    "@nestjs/common": "^6.11.6",
+    "@nestjs/core": "^6.11.6",
+    "@nestjs/microservices": "^6.11.6",
+    "@nestjs/platform-express": "^6.11.6",
+    "@nestjs/platform-socket.io": "^6.11.6",
     "@nestjs/serve-static": "^1.0.2",
     "@nestjs/typeorm": "^6.2.0",
-    "@nestjs/websockets": "^6.11.5",
-    "@sentry/node": "5.12.0",
+    "@nestjs/websockets": "^6.11.6",
+    "@sentry/node": "5.12.3",
     "@types/morgan": "^1.7.37",
     "@types/socket.io": "^2.1.4",
     "dotenv": "^8.2.0",
@@ -44,10 +44,10 @@
     "newrelic": "^6.3.0",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.0",
-    "rxjs": "^6.5.3",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.5.4",
     "socket.io-redis": "^5.2.0",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.22"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.14.1",

@@ -34,6 +34,10 @@ export class MessagesService {
       query = query.andWhere('messages.station_id IN (:...ids)', {
         ids: params.station_ids.split(',').map((id: string) => Number(id))
       });
+    if (params.exclude_errors)
+      query = query.andWhere('messages.error NOT IN (:...errors)', {
+        errors: params.exclude_errors.split(',').map((id: string) => Number(id))
+      });
 
     query = query
       .orderBy({

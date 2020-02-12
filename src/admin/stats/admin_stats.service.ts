@@ -182,8 +182,6 @@ export class AdminStatsService {
 
     const daily = reportDailyCounts.reduce((map, rmc: any) => {
       const date: Date = rmc.date;
-      console.log(rmc.date);
-      // map[date.toString()] = rmc.messagesCount;
       map[`${date.getFullYear()}-${(date.getUTCMonth() + 101).toString().substring(1)}-${(date.getUTCDay() + 101).toString().substring(1)}`] = rmc.messagesCount;
       return map;
     }, {});
