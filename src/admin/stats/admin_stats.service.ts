@@ -176,13 +176,15 @@ export class AdminStatsService {
 
     const monthly = reportMonthlyCounts.reduce((map, rmc: any) => {
       const date: Date = rmc.date;
-      map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      map[`${date.getFullYear()}-${(date.getUTCMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
       return map;
     }, {});
 
     const daily = reportDailyCounts.reduce((map, rmc: any) => {
       const date: Date = rmc.date;
-      map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}-${(date.getDay() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      console.log(rmc.date);
+      // map[date.toString()] = rmc.messagesCount;
+      map[`${date.getFullYear()}-${(date.getUTCMonth() + 101).toString().substring(1)}-${(date.getUTCDay() + 101).toString().substring(1)}`] = rmc.messagesCount;
       return map;
     }, {});
 

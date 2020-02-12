@@ -30,6 +30,10 @@ export class MessagesService {
       );
     if (params.flight_id)
       query = query.andWhere('messages.flight_id = :id', { id: params.flight_id });
+    if (params.station_ids)
+      query = query.andWhere('messages.station_id IN (:...ids)', {
+        ids: params.station_ids.split(',').map((id: string) => Number(id))
+      });
 
     query = query
       .orderBy({
