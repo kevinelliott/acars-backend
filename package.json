@@ -35,6 +35,7 @@
     "fastify-cors": "^3.0.1",
     "fastify-websocket": "^1.1.0",
     "logrocket": "^1.0.6",
+    "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "nats": "^1.3.2",
     "nest-morgan": "^1.0.1",

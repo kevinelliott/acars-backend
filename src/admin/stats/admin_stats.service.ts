@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as moment from 'moment';
 
 import { Airframe } from '../../entities/airframe.entity';
 import { Flight } from '../../entities/flight.entity';
@@ -176,14 +177,16 @@ export class AdminStatsService {
 
     const monthly = reportMonthlyCounts.reduce((map, rmc: any) => {
       const date: Date = rmc.date;
-      map[`${date.getFullYear()}-${(date.getUTCMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      const monthString = moment(rmc.date).format('YYYY-mm');
+      map[monthString] = rmc.messagesCount;
       return map;
     }, {});
 
     const daily = reportDailyCounts.reduce((map, rmc: any) => {
       console.log(`report_daily_counts: ${rmc.date.toString()}`);
       const date: Date = rmc.date;
-      map[`${date.getFullYear()}-${(date.getUTCMonth() + 101).toString().substring(1)}-${(date.getUTCDay() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      const dayString = moment(rmc.date).format('YYYY-mm-dd');
+      map[dayString] = rmc.messagesCount;
       return map;
     }, {});
 
