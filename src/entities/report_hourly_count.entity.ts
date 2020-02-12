@@ -12,8 +12,8 @@ export class ReportHourlyCount {
   @Column({ name: 'station_id' })
   stationId: number;
 
-  @Column({ name: 'date' })
-  date: Date;
+  @Column({ name: 'hour' })
+  hour: Date;
 
   @Column({ name: 'messages_count' })
   messagesCount: number;
