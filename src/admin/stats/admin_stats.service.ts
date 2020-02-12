@@ -160,9 +160,9 @@ export class AdminStatsService {
       .getMany();
     const stationCounts = await stations.reduce(async(acc, station: any) => {
       const accumulator = await acc;
-      accumulator[station.id] = await this.getStationCounts(station);
+      accumulator.push(await this.getStationCounts(station));
       return accumulator;
-    }, {})
+    }, [])
 
     return {
       stations: stationCounts,
@@ -176,7 +176,6 @@ export class AdminStatsService {
     const stationMessageCount: any = await this.getStationMessageCount(station.id);
 
     const monthly = reportMonthlyCounts.reduce((map, rmc: any) => {
-      const date: Date = rmc.date;
       const monthString = moment(rmc.date).format('YYYY-mm');
       map[monthString] = rmc.messagesCount;
       return map;
@@ -184,13 +183,13 @@ export class AdminStatsService {
 
     const daily = reportDailyCounts.reduce((map, rmc: any) => {
       console.log(`report_daily_counts: ${rmc.date.toString()}`);
-      const date: Date = rmc.date;
       const dayString = moment(rmc.date).format('YYYY-mm-dd');
       map[dayString] = rmc.messagesCount;
       return map;
     }, {});
 
     return {
+      id: station.id,
       ident: station.ident,
       messages: {
         all: Number(stationMessageCount.messagesCount),
