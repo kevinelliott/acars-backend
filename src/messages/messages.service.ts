@@ -38,6 +38,10 @@ export class MessagesService {
       query = query.andWhere('messages.error NOT IN (:...errors)', {
         errors: params.exclude_errors.split(',').map((id: string) => Number(id))
       });
+    if (params.exclude_labels)
+      query = query.andWhere('messages.label NOT IN (:...labels)', {
+        labels: params.exclude_labels.split(',')
+      });
     if (params.labels)
       query = query.andWhere('messages.label IN (:...labels)', {
         labels: params.labels.split(',')
