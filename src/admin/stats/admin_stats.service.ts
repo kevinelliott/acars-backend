@@ -6,6 +6,10 @@ import { Airframe } from '../../entities/airframe.entity';
 import { Flight } from '../../entities/flight.entity';
 import { Message } from '../../entities/message.entity';
 import { Station } from '../../entities/station.entity';
+import { StationMessageCount } from '../../entities/station_message_count.entity';
+import { ReportMonthlyCount } from 'src/entities/report_monthly_count.entity';
+import { ReportDailyCount } from 'src/entities/report_daily_count.entity';
+import { ReportHourlyCount } from 'src/entities/report_hourly_count.entity';
 
 @Injectable()
 export class AdminStatsService {
@@ -13,7 +17,11 @@ export class AdminStatsService {
     @InjectRepository(Airframe, 'readonly') private readonly airframeRepository: Repository<Airframe>,
     @InjectRepository(Flight, 'readonly') private readonly flightRepository: Repository<Flight>,
     @InjectRepository(Message, 'readonly') private readonly messageRepository: Repository<Message>,
+    @InjectRepository(ReportMonthlyCount, 'readonly') private readonly reportMonthlyCountRepository: Repository<ReportMonthlyCount>,
+    @InjectRepository(ReportDailyCount, 'readonly') private readonly reportDailyCountRepository: Repository<ReportDailyCount>,
+    @InjectRepository(ReportHourlyCount, 'readonly') private readonly reportHourlyCountRepository: Repository<ReportHourlyCount>,
     @InjectRepository(Station, 'readonly') private readonly stationRepository: Repository<Station>,
+    @InjectRepository(StationMessageCount, 'readonly') private readonly stationMessageCountRepository: Repository<Station>,
   ) { }
 
   async getAirframeCount(): Promise<Object> {
@@ -49,6 +57,38 @@ export class AdminStatsService {
       .groupBy('flight')
       .select('flight, COUNT(flight)')
       .getRawMany();
+  }
+
+  async getReportMonthlyCounts(id): Promise<Object> {
+    return await this.reportMonthlyCountRepository.createQueryBuilder('report_monthly_counts')
+      .where({
+        stationId: id
+      })
+      .getMany();
+  }
+
+  async getReportDailyCounts(id): Promise<Object> {
+    return await this.reportMonthlyCountRepository.createQueryBuilder('report_daily_counts')
+      .where({
+        stationId: id
+      })
+      .getMany();
+  }
+
+  async getReportHourlyCounts(id): Promise<Object> {
+    return await this.reportMonthlyCountRepository.createQueryBuilder('report_hourly_counts')
+      .where({
+        stationId: id
+      })
+      .getMany();
+  }
+
+  async getStationMessageCount(id): Promise<Object> {
+    return await this.stationMessageCountRepository.createQueryBuilder('station_message_counts')
+      .where({
+        stationId: id
+      })
+      .getOne();
   }
 
   async getStats(): Promise<Object> {
@@ -115,8 +155,34 @@ export class AdminStatsService {
   }
 
   async getStations(): Promise<Object> {
+    const stations: any = await this.stationRepository.createQueryBuilder('stations')
+      .getMany();
+    const stationCounts = await stations.reduce(async(acc, station: any) => {
+      const accumulator = await acc;
+      accumulator[station.id] = await this.getStation(station.id);
+      return accumulator;
+    }, {})
+
     return {
-      stations: []
+      stations: stationCounts,
     };
+  }
+
+  async getStation(id): Promise<Object> {
+    const reportMonthlyCounts: any = await this.getReportMonthlyCounts(id);
+    const reportDailyCounts: any = await this.getReportDailyCounts(id);
+    const reportHourlyCounts: any = await this.getReportHourlyCounts(id);
+    const stationMessageCount: any = await this.getStationMessageCount(id);
+
+    return {
+      messages: {
+        all: Number(stationMessageCount.messagesCount),
+        monthly: reportMonthlyCounts.reduce((map, rmc: any) => {
+          const date: Date = rmc.date;
+          map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
+          return map;
+        }, {}),
+      }
+    }
   }
 }

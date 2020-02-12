@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { AdminStatsService } from './admin_stats.service';
 
@@ -44,6 +44,11 @@ export class AdminStatsController {
   @Get('stations')
   getStations(): Promise<Object> {
     return this.adminStatsService.getStations();
+  }
+
+  @Get('stations/:id')
+  getStation(@Param() params): Promise<Object> {
+    return this.adminStatsService.getStation(params.id);
   }
 
 }
