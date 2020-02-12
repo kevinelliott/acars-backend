@@ -68,12 +68,12 @@ export class AdminStatsService {
   }
 
   async getReportDailyCounts(id): Promise<Object> {
-    return await this.reportDailyCountRepository.createQueryBuilder('report_daily_counts')
-      .where({
+    return await this.reportDailyCountRepository.find({
+      where: {
         stationId: id
-      })
-      .getMany();
-  }
+      }
+    });
+   }
 
   async getReportHourlyCounts(id): Promise<Object> {
     return await this.reportHourlyCountRepository.createQueryBuilder('report_hourly_counts')
