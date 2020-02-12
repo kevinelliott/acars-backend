@@ -48,7 +48,7 @@ export class AdminStatsController {
 
   @Get('stations/:id')
   getStation(@Param() params): Promise<Object> {
-    return this.adminStatsService.getStation(params.id);
+    return this.adminStatsService.getStationCounts(params.id);
   }
 
 }

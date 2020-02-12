@@ -159,7 +159,7 @@ export class AdminStatsService {
       .getMany();
     const stationCounts = await stations.reduce(async(acc, station: any) => {
       const accumulator = await acc;
-      accumulator[station.id] = await this.getStation(station.id);
+      accumulator[station.id] = await this.getStationCounts(station);
       return accumulator;
     }, {})
 
@@ -168,20 +168,30 @@ export class AdminStatsService {
     };
   }
 
-  async getStation(id): Promise<Object> {
-    const reportMonthlyCounts: any = await this.getReportMonthlyCounts(id);
-    const reportDailyCounts: any = await this.getReportDailyCounts(id);
-    const reportHourlyCounts: any = await this.getReportHourlyCounts(id);
-    const stationMessageCount: any = await this.getStationMessageCount(id);
+  async getStationCounts(station): Promise<Object> {
+    const reportMonthlyCounts: any = await this.getReportMonthlyCounts(station.id);
+    const reportDailyCounts: any = await this.getReportDailyCounts(station.id);
+    const reportHourlyCounts: any = await this.getReportHourlyCounts(station.id);
+    const stationMessageCount: any = await this.getStationMessageCount(station.id);
+
+    const monthly = reportMonthlyCounts.reduce((map, rmc: any) => {
+      const date: Date = rmc.date;
+      map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      return map;
+    }, {});
+
+    const daily = reportDailyCounts.reduce((map, rmc: any) => {
+      const date: Date = rmc.date;
+      map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}-${(date.getDay() + 101).toString().substring(1)}`] = rmc.messagesCount;
+      return map;
+    }, {});
 
     return {
+      ident: station.ident,
       messages: {
         all: Number(stationMessageCount.messagesCount),
-        monthly: reportMonthlyCounts.reduce((map, rmc: any) => {
-          const date: Date = rmc.date;
-          map[`${date.getFullYear()}-${(date.getMonth() + 101).toString().substring(1)}`] = rmc.messagesCount;
-          return map;
-        }, {}),
+        monthly: monthly,
+        daily: daily,
       }
     }
   }
