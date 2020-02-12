@@ -176,14 +176,14 @@ export class AdminStatsService {
     const stationMessageCount: any = await this.getStationMessageCount(station.id);
 
     const monthly = reportMonthlyCounts.reduce((map, rmc: any) => {
-      const monthString = moment(rmc.date).format('YYYY-mm');
+      const monthString = moment(rmc.date).format('YYYY-MM');
       map[monthString] = rmc.messagesCount;
       return map;
     }, {});
 
     const daily = reportDailyCounts.reduce((map, rmc: any) => {
       console.log(`report_daily_counts: ${rmc.date.toString()}`);
-      const dayString = moment(rmc.date).format('YYYY-mm-dd');
+      const dayString = moment(rmc.date).format('YYYY-MM-DD');
       map[dayString] = rmc.messagesCount;
       return map;
     }, {});
