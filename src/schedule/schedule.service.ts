@@ -42,7 +42,7 @@ export class ScheduleService extends NestSchedule {
   //   startTime: new Date(),
   //   endTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   // })
-  @Cron('0 30 * * * *')
+  @Cron('0 5 * * * *')
   async calculateLeaderboard() {
     this.logger.log('Cron Job: Calculating Leaderboard');
 

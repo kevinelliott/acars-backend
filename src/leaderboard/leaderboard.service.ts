@@ -13,7 +13,7 @@ export class LeaderboardService {
   async getCurrentLeaderboard(): Promise<Object> {
     return await this.leaderboardRepository
       .findOne({
-        relations: ["ranks"],
+        relations: ["ranks", 'ranks.station'],
         order: { date: 'DESC' }
       });
   }
