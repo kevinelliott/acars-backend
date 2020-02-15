@@ -15,6 +15,7 @@ import { AdminStatsModule } from './admin/stats/admin_stats.module';
 import { AirframesModule } from './airframes/airframes.module';
 import { EventsModule } from './events/events.module';
 import { FlightsModule } from './flights/flights.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { MessagesModule } from './messages/messages.module';
 import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
@@ -56,6 +57,7 @@ const statusMonitorConfig = {
     AirframesModule,
     EventsModule,
     FlightsModule,
+    LeaderboardModule,
     MessagesModule,
     NatsModule,
     RavenModule,
