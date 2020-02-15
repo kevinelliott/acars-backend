@@ -23,7 +23,7 @@ export class LeaderboardRank {
   @Column({ name: 'ranking'})
   ranking: Number;
 
-  @ManyToOne(type => Station, station => station.messages)
+  @ManyToOne(type => Station, station => station.leaderboard_ranks)
   @JoinColumn({ name: 'station_id' })
   station: Station;
 

@@ -14,6 +14,7 @@ import {
 } from 'typeorm';
 
 import { Airframe } from './airframe.entity';
+import { LeaderboardRank } from './leaderboard_rank.entity';
 import { Message } from './message.entity';
 import { StationMessageCount } from './station_message_count.entity';
 
@@ -27,6 +28,9 @@ export class Station {
 
   @Column({ name: 'ip_address' })
   ipAddress: string;
+
+  @OneToMany(type => LeaderboardRank, rank => rank.station)
+  leaderboard_ranks: [];
 
   @OneToMany(type => Message, message => message.station)
   messages: [];
