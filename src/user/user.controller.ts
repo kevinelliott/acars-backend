@@ -8,7 +8,8 @@ export class UserController {
 
   @Get('myip')
   async current(@Req() req): Promise<Object> {
-    console.log(req.connection.remoteAddress.split(':').pop());
-    return this.userService.myIp(req.connection.remoteAddress.split(':').pop());
+    const ipAddress = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress;
+    console.log(ipAddress.split(':').pop());
+    return this.userService.myIp(ipAddress);
   }
 }
