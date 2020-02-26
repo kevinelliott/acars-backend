@@ -245,6 +245,8 @@ export class ScheduleService extends NestSchedule {
             rank.flightThisMonthCount = stationStat.flightThisMonthCount;
             rank.flightLast24HoursCount = stationStat.flightLast24HoursCount;
             rank.messageAllTimeCount = stationStat.messageAllTimeCount;
+            rank.messageThisMonthCount = stationStat.messageThisMonthCount;
+            rank.messageLast24HoursCount = stationStat.messageLast24HoursCount;
             await this.leaderboardRankRepository.save(rank);
           }
         });
