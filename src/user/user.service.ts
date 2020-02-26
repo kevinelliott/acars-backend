@@ -11,8 +11,15 @@ export class UserService {
   ) { }
 
   async myIp(ip: string): Promise<Object> {
-    return this.stationRepository.find({
+    const data = {
+      ipAddress: ip,
+      stations: []
+    };
+
+    data.stations = await this.stationRepository.find({
       where: { ipAddress: ip }
     });
+
+    return data;
   }
 }
