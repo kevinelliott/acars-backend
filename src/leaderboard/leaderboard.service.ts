@@ -17,4 +17,36 @@ export class LeaderboardService {
         order: { date: 'DESC' }
       });
   }
+
+  async getLeaderboardForDate(date): Promise<Object> {
+    const previous = await this.leaderboardRepository
+      .findOne({
+        relations: ['ranks', 'ranks.station'],
+        where: `date = DATE '${date.toDateString()}' - interval '1 month'`,
+        order: { updatedAt: 'DESC' }
+      });
+
+    const current = await this.leaderboardRepository
+      .findOne({
+        relations: ['ranks', 'ranks.station'],
+        where: {
+          date: date
+        },
+        order: { updatedAt: 'DESC' }
+      });
+
+    const next = await this.leaderboardRepository
+      .findOne({
+        relations: ['ranks', 'ranks.station'],
+        where: `date = DATE '${date.toDateString()}' + interval '1 month'`,
+        order: { updatedAt: 'ASC' }
+      });
+
+    let output = {
+      previous: previous,
+      current: current,
+      next: next
+    }
+    return output;
+  }
 }

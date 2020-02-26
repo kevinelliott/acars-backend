@@ -9,6 +9,7 @@ import {
   RelationCount,
   ManyToMany,
   JoinTable,
+  Timestamp,
 } from 'typeorm';
 
 import { LeaderboardRank } from './leaderboard_rank.entity';

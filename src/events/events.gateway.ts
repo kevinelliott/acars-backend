@@ -24,10 +24,9 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     context: 'Ws'
   }))
   async handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
+    this.logger.log(`Browser connected: ${client.id}`);
     this.connectionsCount++;
     this.connections.set(client.id, client);
-    this.logger.log('Browser connected.');
 
     const clients = new Array();
     Array.from(this.connections.values()).forEach((value: Socket) => {
@@ -37,17 +36,14 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
         handshake: value.handshake,
       });
     });
-    this.logger.log(clients);
     this.server.emit('clients', clients);
-
     this.server.emit('events', 'browser-connected');
   }
 
   async handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
+    this.logger.log(`Browser disconnected: ${client.id}`);
     this.connectionsCount--;
     this.connections.delete(client.id);
-    this.logger.log('Browser disconnected.');
 
     const clients = new Array();
     for(let [key, value] of this.connections) {
@@ -58,7 +54,6 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
       });
     }
     this.server.emit('clients', clients);
-
     this.server.emit('events', 'browser-disconnected');
   }
 

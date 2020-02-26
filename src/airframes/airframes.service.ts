@@ -10,7 +10,7 @@ import { Station } from '../entities/station.entity';
 @Injectable()
 export class AirframesService {
   constructor(
-    @InjectRepository(Airframe) private readonly airframeRepository: Repository<Station>,
+    @InjectRepository(Airframe) private readonly airframeRepository: Repository<Airframe>,
     @InjectRepository(Flight) private readonly flightRepository: Repository<Station>,
     @InjectRepository(Message) private readonly messageRepository: Repository<Message>,
     @InjectRepository(Station) private readonly stationRepository: Repository<Station>,
@@ -18,7 +18,9 @@ export class AirframesService {
 
   async getAllAirframes(): Promise<Object> {
     return await this.airframeRepository
-      .find();
+      .find({
+        order: { tail: 'ASC' },
+      });
   }
 
   async getAirframe(id): Promise<Object> {
