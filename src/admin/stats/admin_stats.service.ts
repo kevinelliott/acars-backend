@@ -142,8 +142,14 @@ export class AdminStatsService {
   }
 
   async getFrequencies(): Promise<Object> {
+    const frequencies: any = await this.messageRepository.createQueryBuilder('messages')
+      .select('frequency', 'frequency')
+      .addSelect('count(*)', 'message_count')
+      .groupBy('frequency')
+      .orderBy('message_count', 'DESC')
+      .getMany();
     return {
-      frequencies: []
+      frequencies: frequencies
     };
   }
 

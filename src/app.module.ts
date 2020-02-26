@@ -19,6 +19,8 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { MessagesModule } from './messages/messages.module';
 import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 
 const statusMonitorConfig = {
   pageTitle: 'Nest.js Monitoring Page',
@@ -67,6 +69,8 @@ const statusMonitorConfig = {
     // }),
     TypeOrmModule.forRoot(configService.getDefaultDbConfig()),
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
+    UsersModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
