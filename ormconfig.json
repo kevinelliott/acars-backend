@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "kevin",
   "password": "",
-  "database": "acars-server",
+  "database": "airframes",
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": false
 }

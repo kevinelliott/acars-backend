@@ -59,7 +59,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   async broadcast(subject: string, data: any) {
     if (this.connectionsCount > 0) {
-      this.logger.log("Broadcasting '" + subject + "' to " + this.connectionsCount + " browsers.");
+      // this.logger.log("Broadcasting '" + subject + "' to " + this.connectionsCount + " browsers.");
       try {
         this.server.emit('events', 'broadcast');
         this.server.emit(subject, data);
@@ -67,7 +67,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
         this.logger.log(e);
       }
     } else {
-      this.logger.log('No browser connections, skipping broadcast.')
+      // this.logger.log('No browser connections, skipping broadcast.')
     }
   }
 

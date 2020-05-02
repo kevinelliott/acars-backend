@@ -11,9 +11,6 @@ async function bootstrap() {
   const fs = require('fs');
   let app;
 
-  const Sentry = require('@sentry/node');
-  Sentry.init({ dsn: 'https://48536c94f91f424b8961d23bd4f79766@sentry.io/2244775' });
-
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
     LogRocket.init('6n9b7u/acars');
 

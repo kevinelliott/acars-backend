@@ -261,13 +261,13 @@ export class ScheduleService extends NestSchedule {
 
   @Interval(5000)
   async intervalJob() {
-    this.logger.log('Job running to gather and broadcast updated data.');
+    // this.logger.log('Job running to gather and broadcast updated data.');
     // this.eventsGateway.broadcast('events', 'interval-job');
 
     let stations = await this.stationRepository.find({
       relations: ['stationMessageCount']
     });
-    this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
+    // this.logger.log('Preparing to broadcast ' + stations.length + ' stations.');
     this.eventsGateway.broadcast('stations', stations);
 
     // Update inactive flights
@@ -282,7 +282,7 @@ export class ScheduleService extends NestSchedule {
       relations: ['airframe'],
       where: { status: 'in-flight' }
     });
-    this.logger.log('Preparing to broadcast ' + activeFlights.length + ' active flights.');
+    // this.logger.log('Preparing to broadcast ' + activeFlights.length + ' active flights.');
     this.eventsGateway.broadcast('activeFlights', activeFlights);
 
     // if you want to cancel the job, you should return true;

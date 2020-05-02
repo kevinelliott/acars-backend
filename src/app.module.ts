@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
 import { MorganModule, MorganInterceptor } from 'nest-morgan';
 import { RavenModule } from 'nest-raven';
-import { StatusMonitorModule } from 'nest-status-monitor';
 
 import { configService } from './config/config.service';
 
@@ -21,40 +21,13 @@ import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { UsersModule } from './users/users.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { HealthController } from './health/health.controller';
 
-const statusMonitorConfig = {
-  pageTitle: 'Nest.js Monitoring Page',
-  port: 443,
-  path: '/status',
-  ignoreStartsWith: '/health/alive',
-  spans: [
-    {
-      interval: 1, // Every second
-      retention: 60, // Keep 60 datapoints in memory
-    },
-    {
-      interval: 5, // Every 5 seconds
-      retention: 60,
-    },
-    {
-      interval: 15, // Every 15 seconds
-      retention: 60,
-    }
-  ],
-  chartVisibility: {
-    cpu: true,
-    mem: true,
-    load: true,
-    responseTime: true,
-    rps: true,
-    statusCodes: true,
-  },
-  healthChecks: []
-}
 @Module({
   imports: [
     MorganModule.forRoot(),
-    StatusMonitorModule.setUp(statusMonitorConfig),
+    TerminusModule,
     AdminStatsModule,
     AirframesModule,
     EventsModule,
@@ -71,8 +44,9 @@ const statusMonitorConfig = {
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
     UsersModule,
     UserModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthController],
   providers: [
     AppService,
     {
