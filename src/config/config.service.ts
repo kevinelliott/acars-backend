@@ -91,7 +91,7 @@ class ConfigService {
       synchronize: false,
 
       cache: false,
-      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
+      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,
     };
   }
 
