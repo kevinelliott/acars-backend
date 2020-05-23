@@ -7,11 +7,12 @@ import { User } from '../entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(User, 'default') private readonly userRepository: Repository<User>,
+    @InjectRepository(User, 'readonly') private readonly userReadonlyRepository: Repository<User>,
   ) {}
 
   async findOne(username: string): Promise<User | undefined> {
-    return await this.userRepository
+    return await this.userReadonlyRepository
       .findOne({
         relations: ['stations'],
         where: {
@@ -21,7 +22,7 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    return await this.userRepository
+    return await this.userReadonlyRepository
       .findOne({
         relations: ['stations'],
         where: {
@@ -31,7 +32,7 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string): Promise<User | undefined> {
-    return await this.userRepository
+    return await this.userReadonlyRepository
       .findOne({
         relations: ['stations'],
         where: {
