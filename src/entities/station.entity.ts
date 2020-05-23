@@ -57,6 +57,9 @@ export class Station {
   @Column({ name: 'source_protocol' })
   sourceProtocol: string;
 
+  @Column({ name: 'user_id' })
+  userId: String;
+
   @ManyToOne(type => User, user => user.stations)
   @JoinColumn({ name: 'user_id' })
   user: User;
