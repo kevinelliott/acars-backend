@@ -68,6 +68,30 @@ export class Station {
   longitude: String;
 
   @Column()
+  altitude: Number;
+
+  @Column({ name: 'nearest_airport_icao' })
+  nearestAirportIcao: string;
+
+  @Column()
+  description: string;
+
+  @Column({ name: 'system_platform' })
+  systemPlatform: string;
+
+  @Column({ name: 'system_os' })
+  systemOS: string;
+
+  @Column({ name: 'equipment_sdr' })
+  equipmentSdr: string;
+
+  @Column({ name: 'equipment_filters' })
+  equipmentFilters: string;
+
+  @Column({ name: 'equipment_antenna' })
+  equipmentAntenna: string;
+
+  @Column()
   status: String;
 
   @Column({ name: 'last_report_at' })
