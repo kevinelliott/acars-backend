@@ -31,6 +31,8 @@
     "@nestjs/terminus": "^7.0.1",
     "@nestjs/typeorm": "^7.0.0",
     "@nestjs/websockets": "^7.0.9",
+    "@ogma/nestjs-module": "^0.1.0",
+    "@ogma/platform-express": "^0.1.0",
     "@sentry/node": "5.15.5",
     "@types/morgan": "^1.9.0",
     "@types/socket.io": "^2.1.4",
