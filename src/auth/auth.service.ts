@@ -30,6 +30,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         gravatar_url: user.gravatarUrl,
+        role: user.role,
         stations: user.stations
       },
       accessToken: this.jwtService.sign(payload),
