@@ -17,7 +17,7 @@ export class ScheduleService extends NestSchedule {
     @InjectConnection() private readonly connection: Connection,
     @InjectRepository(Leaderboard) private readonly leaderboardRepository: Repository<Leaderboard>,
     @InjectRepository(LeaderboardRank) private readonly leaderboardRankRepository: Repository<LeaderboardRank>,
-    @InjectRepository(Flight) private readonly flightRepository: Repository<Station>,
+    @InjectRepository(Flight) private readonly flightRepository: Repository<Flight>,
     @InjectRepository(Message) private readonly messageRepository: Repository<Message>,
     @InjectRepository(Station) private readonly stationRepository: Repository<Station>,
   ) {
