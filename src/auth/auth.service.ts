@@ -29,7 +29,7 @@ export class AuthService {
         username: user.username,
         name: user.name,
         email: user.email,
-        gravatar_url: user.gravatarUrl,
+        gravatarUrl: user.gravatarUrl,
         role: user.role,
         stations: user.stations,
         apiKey: user.apiKey,
