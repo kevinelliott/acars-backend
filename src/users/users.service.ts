@@ -19,4 +19,29 @@ export class UsersService {
         }
       });
   }
+
+  async findOneByEmail(email: string): Promise<User | undefined> {
+    return await this.userRepository
+      .findOne({
+        relations: ['stations'],
+        where: {
+          email: email
+        }
+      });
+  }
+
+  async findOneByUsername(username: string): Promise<User | undefined> {
+    return await this.userRepository
+      .findOne({
+        relations: ['stations'],
+        where: {
+          username: username
+        }
+      });
+  }
+
+  async create(user: User): Promise<User | undefined> {
+    return await this.userRepository
+      .save(user);
+  }
 }

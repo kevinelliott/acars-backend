@@ -5,7 +5,10 @@ import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private authService: AuthService) {}
+  constructor(
+    private readonly appService: AppService,
+    private authService: AuthService
+  ) {}
 
   @Get()
   getHello(): string {
@@ -16,5 +19,10 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @Post('auth/register')
+  async register(@Request() req) {
+   return this.authService.register(req.body);
   }
 }

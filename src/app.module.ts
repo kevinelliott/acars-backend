@@ -3,8 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TerminusModule } from '@nestjs/terminus';
-import { MorganModule, MorganInterceptor } from 'nest-morgan';
 import { RavenModule } from 'nest-raven';
+import { OgmaModule } from '@ogma/nestjs-module';
+import { ExpressParser } from '@ogma/platform-express';
 
 import { configService } from './config/config.service';
 
@@ -26,7 +27,20 @@ import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
-    MorganModule.forRoot(),
+    OgmaModule.forRoot({
+      service: {
+        color: true,
+        json: false,
+        application: 'Airframes'
+      },
+      interceptor: {
+        http: ExpressParser,
+        ws: false,
+        gql: false,
+        rpc: false
+      }
+    }),
+    AuthModule,
     TerminusModule,
     AdminStatsModule,
     AirframesModule,
@@ -37,22 +51,14 @@ import { HealthController } from './health/health.controller';
     NatsModule,
     RavenModule,
     ScheduleModule,
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '..', 'public'),
-    // }),
     TypeOrmModule.forRoot(configService.getDefaultDbConfig()),
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
     UsersModule,
     UserModule,
-    AuthModule,
   ],
   controllers: [AppController, HealthController],
   providers: [
     AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: MorganInterceptor('dev'),
-    }
   ],
 })
 export class AppModule {

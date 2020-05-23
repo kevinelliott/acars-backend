@@ -55,16 +55,16 @@ class ConfigService {
         this.logger.warn(err);
       },
 
-      logging: ['query', 'error'],
-      synchronize: false,
+      // logging: ['query', 'error'],
+      logging: ['error'],
+
       migrationsTableName: 'migration',
-
       migrations: ['src/migration/*.ts'],
-
       cli: {
         migrationsDir: 'src/migration',
       },
 
+      synchronize: false,
       cache: true,
       ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
@@ -87,9 +87,9 @@ class ConfigService {
         this.logger.error(err);
       },
 
-      logging: ['query', 'error'],
-      synchronize: false,
+      logging: ['error'],
 
+      synchronize: false,
       cache: false,
       ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,
     };

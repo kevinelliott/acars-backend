@@ -1,4 +1,3 @@
-import * as LogRocket from 'logrocket';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 
@@ -12,8 +11,6 @@ async function bootstrap() {
   let app;
 
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
-    LogRocket.init('6n9b7u/acars');
-
     const keyFile  = fs.readFileSync('/certs/api.airframes.io-key.pem');
     const certFile = fs.readFileSync('/certs/api.airframes.io-cert.pem');
     app = await NestFactory.create(AppModule, {
@@ -23,7 +20,6 @@ async function bootstrap() {
       }
     });
   } else {
-    LogRocket.init('6n9b7u/acars-dev');
     app = await NestFactory.create(AppModule, {});
   }
 
