@@ -62,6 +62,12 @@ export class Station {
   user: User;
 
   @Column()
+  latitude: String;
+
+  @Column()
+  longitude: String;
+
+  @Column()
   status: String;
 
   @Column({ name: 'last_report_at' })
