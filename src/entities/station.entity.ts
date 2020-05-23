@@ -61,6 +61,9 @@ export class Station {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Column()
+  status: String;
+
   @Column({ name: 'last_report_at' })
   lastReportAt: Date;
 

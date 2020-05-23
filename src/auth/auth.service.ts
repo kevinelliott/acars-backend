@@ -25,7 +25,7 @@ export class AuthService {
     const payload = { email: user.email, username: user.username, sub: user.userId };
     return {
       user: {
-        id: user.userId,
+        id: user.id,
         username: user.username,
         name: user.name,
         email: user.email,
@@ -50,6 +50,7 @@ export class AuthService {
 
     let userDto = new User();
     userDto.email = data.email;
+    userDto.name = data.name;
     userDto.username = data.username;
     userDto.password = data.password;
     userDto.encrypted_password = data.password;

@@ -38,6 +38,9 @@ export class User {
   email: string;
 
   @Column()
+  role: String;
+
+  @Column()
   status: string;
 
   @CreateDateColumn({ name: 'created_at' })

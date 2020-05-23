@@ -14,7 +14,7 @@ export class UsersService {
   async findOne(username: string): Promise<User | undefined> {
     return await this.userReadonlyRepository
       .findOne({
-        relations: ['stations'],
+        relations: ['stations', 'stations.stationMessageCount'],
         where: {
           username: username
         }
@@ -24,7 +24,7 @@ export class UsersService {
   async findOneByEmail(email: string): Promise<User | undefined> {
     return await this.userReadonlyRepository
       .findOne({
-        relations: ['stations'],
+        relations: ['stations', 'stations.stationMessageCount'],
         where: {
           email: email
         }
@@ -34,7 +34,7 @@ export class UsersService {
   async findOneByUsername(username: string): Promise<User | undefined> {
     return await this.userReadonlyRepository
       .findOne({
-        relations: ['stations'],
+        relations: ['stations', 'stations.stationMessageCount'],
         where: {
           username: username
         }
