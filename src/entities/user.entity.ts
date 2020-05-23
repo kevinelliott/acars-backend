@@ -43,6 +43,9 @@ export class User {
   @Column()
   status: string;
 
+  @Column({ name: 'api_key' })
+  apiKey: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
