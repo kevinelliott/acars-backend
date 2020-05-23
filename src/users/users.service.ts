@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectRepository, InjectConnection, InjectEntityManager } from '@nestjs/typeorm';
+import { Repository, Connection } from 'typeorm';
 
 import { User } from '../entities/user.entity';
 
@@ -8,11 +8,10 @@ import { User } from '../entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User, 'default') private readonly userRepository: Repository<User>,
-    @InjectRepository(User, 'readonly') private readonly userReadonlyRepository: Repository<User>,
   ) {}
 
   async findOne(username: string): Promise<User | undefined> {
-    return await this.userReadonlyRepository
+    return await this.userRepository
       .findOne({
         relations: ['stations'],
         where: {
@@ -22,7 +21,7 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    return await this.userReadonlyRepository
+    return await this.userRepository
       .findOne({
         relations: ['stations'],
         where: {
@@ -32,7 +31,7 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string): Promise<User | undefined> {
-    return await this.userReadonlyRepository
+    return await this.userRepository
       .findOne({
         relations: ['stations'],
         where: {
