@@ -22,6 +22,8 @@ import { NatsModule } from './nats/nats.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { UsersModule } from './users/users.module';
 import { UserModule } from './user/user.module';
+import { UserStationsModule } from './user/stations/stations.module';
+
 import { AuthModule } from './auth/auth.module';
 import { HealthController } from './health/health.controller';
 
@@ -55,6 +57,7 @@ import { HealthController } from './health/health.controller';
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
     UsersModule,
     UserModule,
+    UserStationsModule,
   ],
   controllers: [AppController, HealthController],
   providers: [
