@@ -15,6 +15,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Post('auth/confirm')
+  async confirm(@Request() req) {
+    return this.authService.confirm(req.body.token);
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {

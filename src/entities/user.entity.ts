@@ -28,8 +28,8 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
-  encrypted_password: string;
+  @Column({ name: 'encrypted_password' })
+  encryptedPassword: string;
 
   @Column()
   name: string;
@@ -42,6 +42,9 @@ export class User {
 
   @Column()
   status: string;
+
+  @Column({ name: 'confirmation_token' })
+  confirmationToken: string;
 
   @Column({ name: 'api_key' })
   apiKey: string;

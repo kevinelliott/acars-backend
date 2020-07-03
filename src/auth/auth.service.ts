@@ -1,7 +1,9 @@
 import { Injectable, Logger, BadRequestException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
+import * as crypto from 'crypto';
 
+import { UsersService } from '../users/users.service';
 import { User } from '../entities/user.entity';
 
 @Injectable()
@@ -9,6 +11,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private mailerService: MailerService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -19,6 +22,18 @@ export class AuthService {
       return result;
     }
     return null;
+  }
+
+  async confirm(token: any) {
+    console.log('confirm');
+    console.log(token);
+    const user = await this.usersService.findOneByConfirmationToken(token);
+    if (user) {
+      user.status = 'active';
+      await this.usersService.save(user);
+      return { confirmed: true };
+    }
+    throw new BadRequestException('Unable to find pending confirmation');
   }
 
   async login(user: any) {
@@ -39,6 +54,26 @@ export class AuthService {
     };
   }
 
+  async mail(user: User) {
+    console.log(user);
+    this
+      .mailerService
+      .sendMail({
+        to: `${user.name} <${user.email}>`,
+        subject: 'Airframes Registration Confirmation',
+        template: 'confirmation',
+        context: {
+          baseUrl: 'http://localhost:8080',
+          name: user.name,
+          email: user.email,
+          username: user.username,
+          confirmationToken: user.confirmationToken,
+        },
+      })
+      .then(() => {})
+      .catch(() => {});
+  }
+
   async register(data: any) {
     console.log(data);
     let existingUser = await this.usersService.findOneByEmail(data.email);
@@ -56,12 +91,16 @@ export class AuthService {
     userDto.name = data.name;
     userDto.username = data.username;
     userDto.password = data.password;
-    userDto.encrypted_password = data.password;
+    userDto.encryptedPassword = data.password;
+    userDto.confirmationToken = crypto.createHash('md5').digest("hex");
     const user = await this.usersService.create(userDto);
-    const { password, encrypted_password, ...result } = user;
+    const { password, encryptedPassword, ...result } = user;
+
+    const mailResult = await this.mail(user);
+
     return {
       user: result,
-      message: 'Check your email to verify your new account.'
+      message: 'Check your email to verify your new account.',
     };
   }
 }

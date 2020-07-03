@@ -21,6 +21,15 @@ export class UsersService {
       });
   }
 
+  async findOneByConfirmationToken(token: string): Promise<User | undefined> {
+    return await this.userReadonlyRepository
+      .findOne({
+        where: {
+          confirmationToken: token
+        }
+      });
+  }
+
   async findOneByEmail(email: string): Promise<User | undefined> {
     return await this.userReadonlyRepository
       .findOne({
@@ -44,5 +53,9 @@ export class UsersService {
   async create(user: User): Promise<User | undefined> {
     return await this.userRepository
       .save(user);
+  }
+
+  async save(user: User): Promise<User | undefined> {
+    return await this.userRepository.save(user);
   }
 }

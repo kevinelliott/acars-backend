@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { TerminusModule } from '@nestjs/terminus';
 import { RavenModule } from 'nest-raven';
 import { OgmaModule } from '@ogma/nestjs-module';
@@ -44,6 +45,28 @@ import { HealthController } from './health/health.controller';
     }),
     AuthModule,
     TerminusModule,
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.sendgrid.net',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'apikey',
+          pass: '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',
+        }
+      },
+      defaults: {
+        from: '"Airframes" <no-reply@airframes.io>',
+      },
+      preview: true,
+      template: {
+        dir: process.cwd() + '/src/templates/',
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
     AdminStatsModule,
     AirframesModule,
     EventsModule,

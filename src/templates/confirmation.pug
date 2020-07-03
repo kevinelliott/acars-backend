@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+  body(style="margin: 0; font-family: Avenir,Helvetica,Arial,sans-serif;")
+    div(style="margin: 0; padding: .5rem 1rem; background-color: #17a2b8;")
+      div(style="padding-top: .3125rem; padding-bottom: .3125rem; font-size: 1.25rem; color: #ffffff;") AIRFRAMES
+    div(style="margin: 10px;")
+      p(style="text-align: center;")
+        img(src=`${baseUrl}/plane.png` width="200")
+      p(style="text-align: center; font-weight: bold;")
+        | Thank you for registering a user account at Airframes!
+      p.
+        We require email confirmation before your
+        account can be activated. Once your account is activated, you will be able to create a new ACARS/VDL/SATCOM
+        feed or associate with an existing feed.
+      p
+        div Name: #{name}
+        div Email: #{email}
+        div Username: #{username}
+        div Token: #{confirmationToken}
+      p
+        | In order to activate your account, please
+        |
+        a(href=`${baseUrl}/user/confirm/${confirmationToken}`) confim your account
+        | .
+      p
+        | If at any time you need help you can visit the
+        |
+        a(href=`${baseUrl}/about`) About page
+        |
+        | for more details.
