@@ -52,7 +52,7 @@ import { HealthController } from './health/health.controller';
         secure: true,
         auth: {
           user: 'apikey',
-          pass: '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',
+          pass: configService.getSendGridApiKey(),
         }
       },
       defaults: {

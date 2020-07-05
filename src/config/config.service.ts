@@ -38,6 +38,10 @@ class ConfigService {
     }
   }
 
+  public getSendGridApiKey() {
+    return this.getValue('SENDGRID_API_KEY');
+  }
+
   public getDefaultDbConfig(): TypeOrmModuleOptions {
     return {
       name: 'default',
