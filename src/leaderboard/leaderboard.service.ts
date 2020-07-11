@@ -14,7 +14,7 @@ export class LeaderboardService {
     return await this.leaderboardRepository
       .findOne({
         relations: ["ranks", 'ranks.station'],
-        order: { date: 'DESC' }
+        order: { date: 'DESC', createdAt: 'DESC' }
       });
   }
 
