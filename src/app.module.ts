@@ -60,7 +60,7 @@ import { StationsModule } from './stations/stations.module';
       defaults: {
         from: '"Airframes" <no-reply@airframes.io>',
       },
-      preview: true,
+      preview: false,
       template: {
         dir: process.cwd() + '/src/templates/',
         adapter: new PugAdapter(),
