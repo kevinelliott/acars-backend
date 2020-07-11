@@ -16,7 +16,7 @@ export class MailReportService {
       .mailerService
       .sendMail({
         to: `${user.name} <${user.email}>`,
-        subject: 'Your Station\'s Leaderboard Report',
+        subject: `Leaderboard Report for Station ${station.ident}`,
         template: 'report_leaderboard',
         context: {
           baseUrl: 'http://app.airframes.io',
@@ -28,7 +28,7 @@ export class MailReportService {
           flightsLast24Hours: leaderboardRank.flightLast24HoursCount,
           flightsThisMonth: leaderboardRank.flightThisMonthCount,
           messagesLast24Hours: leaderboardRank.message24HoursCount,
-          messagesThisMonth: leaderboardRank.messageThisMountCount,
+          messagesThisMonth: leaderboardRank.messageThisMonthCount,
         },
       })
       .then(() => {})
