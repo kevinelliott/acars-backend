@@ -63,7 +63,7 @@ export class AuthService {
         subject: 'Airframes Registration Confirmation',
         template: 'confirmation',
         context: {
-          baseUrl: 'http://localhost:8080',
+          baseUrl: 'http://app.airframes.io',
           name: user.name,
           email: user.email,
           username: user.username,

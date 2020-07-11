@@ -1,0 +1,62 @@
+doctype html
+html
+  head
+    style(type="text/css").
+      table {
+        width: 100%;
+      }
+      table#stats {
+        border: #cccccc 1px solid;
+      }
+      table#stats td {
+        padding: 10px;
+      }
+  body(style="margin: 0; font-family: Avenir,Helvetica,Arial,sans-serif;")
+    div(style="margin: 0; padding: .5rem 1rem; background-color: #17a2b8;")
+      div(style="padding-top: .3125rem; padding-bottom: .3125rem; font-size: 1.25rem; color: #ffffff;") AIRFRAMES
+    div(style="margin: 20px;")
+      p(style="text-align: center;")
+        img(src=`${baseUrl}/plane.png` width="200")
+      p(style="text-align: center;")
+        h3(style="text-align: center;") Leaderboard Report
+      p(style="text-align: center;").
+        This is your station on the leaderboard as of today.
+      p
+        table(style="width: 100%;")
+          tr
+            td(style="width: 33%;")
+              h2 #{stationIdent || 'Unknown'}
+              small Station
+            td(style="width: 33%; text-align: center;")
+              h2 #{rank || 'Unknown'}
+              small Rank
+            td(style="text-align: right;")
+              h2 #{points || 0}
+              small Points
+
+        div(style="margin-top: 20px;")
+          table#stats
+            tr
+              td
+              td(style="text-align: right;") Last 24 Hours
+              td(style="text-align: right;") This Month
+            tr
+              td Airframes
+              td(style="text-align: right;") #{airframesLast24Hours || 0}
+              td(style="text-align: right;") #{airframesThisMonth || 0}
+            tr
+              td Flights
+              td(style="text-align: right;") #{flightsLast24Hours || 0}
+              td(style="text-align: right;") #{flightsThisMonth || 0}
+            tr
+              td Messages
+              td(style="text-align: right;") #{messagesLast24Hours || 0}
+              td(style="text-align: right;") #{messagesThisMonth || 0}
+      p
+        | In the near future we will make this email opt-in as a setting in your account.
+      p
+        | If at any time you need help you can visit the
+        |
+        a(href=`${baseUrl}/about`) About page
+        |
+        | for more details.

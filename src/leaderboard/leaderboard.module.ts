@@ -12,5 +12,6 @@ import { Leaderboard } from '../entities/leaderboard.entity';
   ],
   controllers: [LeaderboardController],
   providers: [LeaderboardService],
+  exports: [LeaderboardService],
 })
 export class LeaderboardModule {}

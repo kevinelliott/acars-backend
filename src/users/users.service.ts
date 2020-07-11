@@ -21,6 +21,16 @@ export class UsersService {
       });
   }
 
+  async findOneById(id: String): Promise<User | undefined> {
+    return await this.userReadonlyRepository
+      .findOne({
+        relations: ['stations', 'stations.stationMessageCount'],
+        where: {
+          id: id
+        }
+      });
+  }
+
   async findOneByConfirmationToken(token: string): Promise<User | undefined> {
     return await this.userReadonlyRepository
       .findOne({

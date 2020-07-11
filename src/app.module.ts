@@ -27,6 +27,8 @@ import { UserStationsModule } from './user/stations/stations.module';
 
 import { AuthModule } from './auth/auth.module';
 import { HealthController } from './health/health.controller';
+import { MailReportService } from './mail_report.service';
+import { StationsModule } from './stations/stations.module';
 
 @Module({
   imports: [
@@ -76,6 +78,7 @@ import { HealthController } from './health/health.controller';
     NatsModule,
     RavenModule,
     ScheduleModule,
+    StationsModule,
     TypeOrmModule.forRoot(configService.getDefaultDbConfig()),
     TypeOrmModule.forRoot(configService.getReadOnlyDbConfig()),
     UsersModule,
@@ -85,6 +88,7 @@ import { HealthController } from './health/health.controller';
   controllers: [AppController, HealthController],
   providers: [
     AppService,
+    MailReportService,
   ],
 })
 export class AppModule {

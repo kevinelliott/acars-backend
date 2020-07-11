@@ -10,12 +10,17 @@ export class LeaderboardService {
     @InjectRepository(Leaderboard, 'readonly') private readonly leaderboardRepository: Repository<Leaderboard>,
   ) { }
 
-  async getCurrentLeaderboard(): Promise<Object> {
+  async getCurrentLeaderboard(): Promise<Leaderboard> {
     return await this.leaderboardRepository
       .findOne({
         relations: ["ranks", 'ranks.station'],
         order: { date: 'DESC' }
       });
+  }
+
+  async getCurrentRankForStation(stationId: Number): Promise<Object> {
+    let leaderboard = await this.getCurrentLeaderboard();
+    return leaderboard.ranks.find((rank) => rank.station.id === stationId);
   }
 
   async getLeaderboardForDate(date): Promise<Object> {
