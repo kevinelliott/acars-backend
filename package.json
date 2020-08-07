@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@airframes/acars-decoder": "^1.0.24",
     "@nestjs-modules/mailer": "^1.5.1",
     "@nestjs/common": "^7.0.9",
     "@nestjs/core": "^7.0.9",

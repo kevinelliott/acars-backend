@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@airframes/acars-decoder@^1.0.24":
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/@airframes/acars-decoder/-/acars-decoder-1.0.24.tgz#7b76b6d32568ed944fa664dc08ad7060a7f8d6a6"
+  integrity sha512-j1u7bRes+Vo1wvGYxpAAL0WD3G7e/aZfksNQQz5xSQ9eqFHnbepBXwlgIXQQrD93O7dTLUxX+obvKQNCu04T9Q==
+
 "@angular-devkit/core@9.0.6":
   version "9.0.6"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-9.0.6.tgz#cd4862e54f4dad9b47f515abf24e4d440cf8ba13"
