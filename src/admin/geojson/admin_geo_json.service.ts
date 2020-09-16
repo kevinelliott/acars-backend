@@ -22,11 +22,16 @@ export class AdminGeoJsonService {
         .select('frequency', 'frequency')
         .addSelect('count(*)', 'message_count')
         .where(`station_id = ${station.id}`)
+        .where("created_at > now() - interval '30 days'")
         .groupBy('frequency')
         .orderBy('message_count', 'DESC')
         .getRawMany();
 
-      console.log(messages);
+      const counts = messages.map((message: any) => {
+        const frequency = message.frequency != null ? message.frequency.toFixed(3) : 'UNKNOWN';
+        return `${frequency} had ${message.message_count} messages`
+      });
+      const tooltip = `LAST 30 DAYS\n${counts.join('\n')}`;
       var min = 0.0200,
           max = 0.50,
           randNumber = Math.random() * (max - min) + min;
@@ -38,11 +43,10 @@ export class AdminGeoJsonService {
         },
         properties: {
           name: station.ident,
-          tooltip: messages.map((message: any) => `${message.frequency.toFixed(3)} has had ${message.message_count} messages`).join('\n')
+          tooltip: tooltip
         }
       };
       // features.push(point);
-      console.log(point);
       return point;
     }));
     return { type: 'FeatureCollection', features: features };
