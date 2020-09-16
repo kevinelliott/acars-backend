@@ -13,6 +13,7 @@ import { configService } from './config/config.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import { AdminGeoJsonModule } from './admin/geojson/admin_geo_json.module';
 import { AdminStatsModule } from './admin/stats/admin_stats.module';
 import { AirframesModule } from './airframes/airframes.module';
 import { EventsModule } from './events/events.module';
@@ -69,6 +70,7 @@ import { StationsModule } from './stations/stations.module';
         },
       },
     }),
+    AdminGeoJsonModule,
     AdminStatsModule,
     AirframesModule,
     EventsModule,
