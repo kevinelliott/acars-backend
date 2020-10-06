@@ -9,6 +9,7 @@ RUN yarn install
 
 EXPOSE 3001
 
+RUN apk add openssl
 RUN ./generate-local-certs.sh
 
 CMD yarn start:dev
