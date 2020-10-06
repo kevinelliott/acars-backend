@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@airframes/acars-decoder": "^1.0.24",
+    "@airframes/acars-decoder": "^1.0.29",
+    "@grpc/proto-loader": "^0.5.5",
     "@nestjs-modules/mailer": "^1.5.1",
     "@nestjs/common": "^7.0.9",
     "@nestjs/core": "^7.0.9",
@@ -41,6 +42,7 @@
     "dotenv": "^8.2.0",
     "fastify-cors": "^3.0.3",
     "fastify-websocket": "^1.1.2",
+    "grpc": "^1.24.3",
     "logrocket": "^1.0.7",
     "moment": "^2.25.3",
     "morgan": "^1.10.0",
