@@ -460,10 +460,10 @@
     is-absolute "^1.0.0"
     is-negated-glob "^1.0.0"
 
-"@golevelup/nestjs-modules@0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@golevelup/nestjs-modules/-/nestjs-modules-0.4.0.tgz#5efd84de12dc0e74c80e3a7641026a7508384f7b"
-  integrity sha512-PTEUana6AXbOwsjyOt7gfVZYlum/kekWZwU46+F6HmHJNqU9EmrAfUDm4TdX8zSdERbG8cmq9SSAlOPKOi8hOQ==
+"@golevelup/nestjs-modules@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@golevelup/nestjs-modules/-/nestjs-modules-0.4.1.tgz#e24bfa607b715d4df280de9ebcc52f7121cd48f7"
+  integrity sha512-v2GYGtJ8moTfhehavNFBwnHQ+QcgYHssxfqbJZcY4CUqB97E2sWmnAmtgscHDTvHqABOCaq2xvwfw4YTwZU2Ug==
   dependencies:
     shortid "^2.2.14"
 
@@ -959,23 +959,23 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
-"@ogma/logger@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ogma/logger/-/logger-0.1.0.tgz#165574e235f126ac8d0dc84734ef2a210ea145e3"
-  integrity sha512-SiMilyuT4SmB1X3YHKt0tIcY9LeZ7WQ3zWr7mPXPRah+pYp9d/Q8xJn4BUbjvILVvnhHmd//76P+ThmP9PC7yQ==
+"@ogma/logger@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@ogma/logger/-/logger-0.3.1.tgz#40cc731fc37506b74aad29bafe680956d7d0518c"
+  integrity sha512-IOkvHdDAc5rANva2Hc03fzGVZwuFQsMDB0SBJ1DYmu5EDiB/muexKpuCqe2eedQyqPFhacob7j2lj46z4/y5TA==
 
-"@ogma/nestjs-module@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ogma/nestjs-module/-/nestjs-module-0.1.0.tgz#6003d9432862e598d6c50796935d1f70ebcb1e39"
-  integrity sha512-Boybs1NwHpzQmaQDqNArry65+gXIQdqMyB+G536fpXlXSATzrnSmeGp6iWuwt88KIA+ZPjAdt5XvfhKh5Uaxsg==
+"@ogma/nestjs-module@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@ogma/nestjs-module/-/nestjs-module-0.3.1.tgz#6745a09b613d3a6ccd78112adabc3ef67402aa6f"
+  integrity sha512-D1sCY2GdLV+ESWOU8T0ckZQbRv4HPBcnAg6egoh0g1oRE+abdZFVNHAKulEjqeosRT+kLshvbMjQkXXQxoccfA==
   dependencies:
-    "@golevelup/nestjs-modules" "0.4.0"
-    "@ogma/logger" "^0.1.0"
+    "@golevelup/nestjs-modules" "0.4.1"
+    "@ogma/logger" "^0.3.1"
 
-"@ogma/platform-express@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ogma/platform-express/-/platform-express-0.1.0.tgz#c90ecee15207dc80e6448db40e5e8ed8b674cc1d"
-  integrity sha512-CCqwFQXU1CP8g4/FxtaxgWf1X3HHYJXGRA6S1/hUR5hvpHuilFSMtHaWT7lttfPNJn+UvCbNcr0gEBm/URzhuA==
+"@ogma/platform-express@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@ogma/platform-express/-/platform-express-0.3.1.tgz#af721cbb21fb60ec2e6c0a0419278a4f6d133c20"
+  integrity sha512-X0cduJKOkI0FnDX2dt+F7OonNMDU0W1SK66Q115KnGz9sFD3CfqyLIkTjiH1/UeCvEOR3vkYwPtzV8ml7dAGHw==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
