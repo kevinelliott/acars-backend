@@ -70,7 +70,7 @@ class ConfigService {
 
       synchronize: false,
       cache: true,
-      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
+      ssl: process.env.DATABASE_SSL === 'true' || process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod',
     };
   }
 
@@ -95,7 +95,7 @@ class ConfigService {
 
       synchronize: false,
       cache: false,
-      ssl: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,
+      ssl: process.env.DATABASE_SSL === 'true' || process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,
     };
   }
 
