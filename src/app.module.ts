@@ -4,7 +4,6 @@ import { Connection } from 'typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { TerminusModule } from '@nestjs/terminus';
-import { RavenModule } from 'nest-raven';
 import { OgmaModule } from '@ogma/nestjs-module';
 import { ExpressParser } from '@ogma/platform-express';
 
@@ -78,7 +77,6 @@ import { StationsModule } from './stations/stations.module';
     LeaderboardModule,
     MessagesModule,
     NatsModule,
-    RavenModule,
     ScheduleModule,
     StationsModule,
     TypeOrmModule.forRoot(configService.getDefaultDbConfig()),
