@@ -231,7 +231,7 @@ export class ScheduleService extends NestSchedule {
           .execute();
 
         stationStats.forEach(async (stationStat) => {
-          console.log(stationStat);
+          // console.log(stationStat);
           if (stationStat.station && stationStat.station.id) {
             let rank = new LeaderboardRank();
             rank.leaderboard = leaderboard;

@@ -49,6 +49,9 @@ export class Flight {
   @Column()
   altitude: Number;
 
+  @Column()
+  track: Number;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

@@ -5,11 +5,13 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
+  OneToMany,
   JoinColumn
 } from 'typeorm';
 
 import { Airframe } from './airframe.entity';
 import { Flight } from './flight.entity';
+import { MessageDecoding } from './message_decoding.entity';
 import { Station } from './station.entity';
 
 @Entity('messages')
@@ -100,6 +102,9 @@ export class Message {
 
   @Column()
   altitude: number;
+
+  @OneToMany(type => MessageDecoding, message_decoding => message_decoding.message)
+  message_decodings: MessageDecoding[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

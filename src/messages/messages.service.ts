@@ -13,7 +13,7 @@ export class MessagesService {
   async getMessage(id): Promise<Object> {
     return await this.messageRepository
       .findOne(id, {
-        relations: ['airframe', 'flight', 'station']
+        relations: ['airframe', 'flight', 'station', 'message_decodings']
       });
   }
 
